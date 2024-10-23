@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BudgetWise</title>
+    <link rel="stylesheet" href="indexstyle.css"/>
+  </head>
+  <body>
+    <header>
+      <nav>
+        <ul>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </nav>
+    </header>
+    <main>
+      <section class="welcome">
+        <h1>Welcome to BudgetWise</h1>
+        <p>Plan smart, spend smarter.</p>
+      
+      <form action=""
+            id="myForm">
+        <label for="email">
+              Email:
+        </label>
+        <input type="text"
+               id="loginEmail"
+               autocomplete="off"
+               placeholder="Enter your email" required>
+        <label for="password">
+              Password:
+        </label>
+        <input type="password"
+               id="loginPassword"
+               autocomplete="off"
+               placeholder="Enter your password" required>
+        <button type="submit">
+              Login
+        </button>
+      </form>
+      <button id="resetPW"> Forgot Password?</button>
+      <div class="box">
+        <a href="#popup1">Not registered? Create an account!</a>
+      </div>
+    </section>
+    <div id="popup1" class="overlay">
+      <div class="popup">
+        <h2>Registration</h2>
+        <a class="close" href="#">&times;</a>
+        <div class="content">
+            <form action=""
+                  id="regForm">
+            <label for="regEmail">Email:</label>
+            <input type="regEmail"
+                   id="regEmail"
+                   autocomplete="off"
+                   required/>
+            <label for="regPassword">Password:</label>
+            <input type="password"
+                   id="regPassword"
+                   autocomplete="off"
+                   pattern="^(?=.*\d)(?=.*[a-zA-Z])(?=.*[^a-zA-Z0-9])\S{8,}$"
+                   title="Password must contain at least one number, 
+                          one alphabet, one symbol, and be at 
+                          least 8 characters long"
+                   required/>
+            <label for="regRepassword">Re-type Password:</label>
+            <input type="password"
+                   id="regRepassword"
+                   autocomplete="off"
+                   required/>
+            <button type="submit"> Register </button>
+            </form>
+          </div>
+        </div>
+      </div> 
+    </main>
+    <footer>
+      <p>© 2024 BudgetWise. All rights reserved.</p>
+    </footer>
+
+    <!--- JavaScript external files-->
+    <script type="module" src="script.js"></script>
+
+  </body>
+</html>
