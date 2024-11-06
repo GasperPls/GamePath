@@ -28,7 +28,6 @@ label {
 	font-weight: bold;
 }
 
-
 input {
 	display: block;
 	width: 100%;
@@ -57,6 +56,7 @@ button {
 button:hover{
 	background-color: rgb(200, 117, 131);
 }
+
 .button {
 	font-size: 1em;
 	padding: 10px;
@@ -67,6 +67,7 @@ button:hover{
 	border: 1px solid transparent;
 	width: 100%;
 }
+
 .box {
 	padding: 10px;
 	border-radius: 15px;
@@ -81,15 +82,18 @@ button:hover{
 	transition: 1s;
 	text-align: center;
 }
+
 .box:hover {
 	background-color: rgb(200, 117, 131);
 }
+
 section{
     background-color: white;
 	width: 300px;
 	height: 475px;
 	padding: 20px;
-}  
+}
+
 header{
 	position: fixed;
 	top: 0;
@@ -104,6 +108,7 @@ header{
 	word-spacing: 50px;
 
 }
+
 header img{
 	width: 100px;
 	height: 60px;
