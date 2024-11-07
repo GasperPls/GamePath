@@ -1,86 +1,76 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>BudgetWise</title>
-    <link rel="stylesheet" href="indexstyle.css"/>
-  </head>
-  <body>
-    <header>
-      <nav>
-        <ul>
-          <li><a href="test.html">test</a></li>
-        </ul>
-      </nav>
-    </header>
-    <main>
-      <section class="welcome">
-        <h1>Welcome to GamePath</h1>
-      
-      <form action=""
-            id="myForm">
-        <label for="email">
-              Email:
-        </label>
-        <input type="text"
-               id="loginEmail"
-               autocomplete="off"
-               placeholder="Enter your email" required>
-        <label for="password">
-              Password:
-        </label>
-        <input type="password"
-               id="loginPassword"
-               autocomplete="off"
-               placeholder="Enter your password" required>
-        <button type="submit">
-              Login
-        </button>
-      </form>
-      <button id="resetPW"> Forgot Password?</button>
-      <div class="box">
-        <a href="#popup1">Not registered? Create an account!</a>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GamePath</title>
+  <link rel="stylesheet" href="indexstyle.css" />
+</head>
+<body>
+
+  <!-- Navigation Bar -->
+  <header>
+    <nav>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="#library">Library</a></li>
+        <li><a href="#ratings">Ratings</a></li>
+        <li><a href="#profile">Profile</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Main Content -->
+  <main>
+    <!-- Login Section -->
+    <section class="login-section">
+      <div class="login-box">
+        <h1>GamePath</h1>
+        <form action="" id="myForm">
+          <label for="email">Email:</label>
+          <input type="text" id="loginEmail" autocomplete="off" placeholder="Email" required>
+          <label for="password">Password:</label>
+          <input type="password" id="loginPassword" autocomplete="off" placeholder="Password" required>
+          <button type="submit">Login</button>
+        </form>
+        <p>Or</p>
+        <a href="#popup1">Create an account...</a>
       </div>
     </section>
+
+    <!-- Home Sections with 3 Options -->
+    <section class="home-options">
+      <div class="option-box">Go to Libraries</div>
+      <div class="option-box">Leave a Review</div>
+      <div class="option-box">Search Video Games</div>
+    </section>
+
+    <!-- Registration Popup -->
     <div id="popup1" class="overlay">
       <div class="popup">
         <h2>Registration</h2>
         <a class="close" href="#">&times;</a>
         <div class="content">
-            <form action=""
-                  id="regForm">
+          <form action="" id="regForm">
             <label for="regEmail">Email:</label>
-            <input type="regEmail"
-                   id="regEmail"
-                   autocomplete="off"
-                   required/>
+            <input type="email" id="regEmail" autocomplete="off" required />
             <label for="regPassword">Password:</label>
-            <input type="password"
-                   id="regPassword"
-                   autocomplete="off"
-                   pattern="^(?=.*\d)(?=.*[a-zA-Z])(?=.*[^a-zA-Z0-9])\S{8,}$"
-                   title="Password must contain at least one number, 
-                          one alphabet, one symbol, and be at 
-                          least 8 characters long"
-                   required/>
-            <label for="regRepassword">Re-type Password:</label>
-            <input type="password"
-                   id="regRepassword"
-                   autocomplete="off"
-                   required/>
-            <button type="submit"> Register </button>
-            </form>
-          </div>
+            <input type="password" id="regPassword" autocomplete="off" required />
+            <button type="submit">Register</button>
+          </form>
         </div>
-      </div> 
-    </main>
-    <footer>
-      <p>© 2024 GamePath. All rights reserved.</p>
-    </footer>
+      </div>
+    </div>
 
-    <!--- JavaScript external files-->
-    <script type="module" src="script.js"></script>
+  </main>
 
-  </body>
+  <!-- Footer -->
+  <footer>
+    <p>© 2024 GamePath. All rights reserved.</p>
+  </footer>
+
+  <!-- JavaScript external files -->
+  <script type="module" src="script.js"></script>
+
+</body>
 </html>
