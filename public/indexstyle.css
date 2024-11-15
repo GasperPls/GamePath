@@ -7,8 +7,8 @@
 
 body {
     font-family: Arial, sans-serif;
-    background-color: #061826; /* Dark background from palette */
-    color: #E6D6C1; /* Light beige text color from palette */
+    background-color: #061826; /* Dark background */
+    color: #E6D6C1; /* Light beige text color */
     min-height: 100vh;
     display: flex;
     flex-direction: column;
@@ -40,6 +40,28 @@ header nav ul li a:hover {
     color: #7E695C; /* Brownish color for hover */
 }
 
+/* Front-Page Attraction */
+.front-page-attraction {
+    text-align: center;
+    padding: 2em;
+    background-color: #1A303F; /* Dark background for contrast */
+    color: #E6D6C1; /* Light beige text color */
+    border-radius: 10px;
+    margin-bottom: 2em;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.3); /* Subtle shadow */
+}
+
+.front-page-attraction h2 {
+    font-size: 1.8em;
+    margin-bottom: 0.5em;
+    font-weight: bold;
+}
+
+.front-page-attraction p {
+    font-size: 1.1em;
+    color: #7E695C; /* Slightly darker text color for the message */
+}
+
 /* Main Content Wrapper */
 main {
     flex: 1;
@@ -49,6 +71,58 @@ main {
     justify-content: center;
     padding: 2em;
 }
+
+
+/* Library Section */
+.library-section {
+    text-align: center;
+    padding: 2em;
+    color: #E6D6C1;
+}
+
+.library-intro {
+    font-size: 1.1em;
+    color: #7E695C;
+    margin-bottom: 1em;
+}
+
+/* Game Grid Layout */
+.game-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5em;
+    justify-content: center;
+    padding-top: 1em;
+}
+
+.game-card {
+    background-color: #2B505C; /* Muted teal for game cards */
+    color: #E6D6C1;
+    padding: 1em;
+    border-radius: 10px;
+    width: 200px;
+    text-align: center;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.game-card img {
+    max-width: 100%;
+    border-radius: 5px;
+    margin-bottom: 0.5em;
+}
+
+.game-card h2 {
+    font-size: 1.2em;
+    margin: 0.5em 0;
+}
+
+.game-card p {
+    font-size: 0.9em;
+    color: #7E695C;
+}
+
+
+
 
 /* Login Section */
 .login-section {
@@ -69,7 +143,7 @@ main {
 .login-box h1 {
     font-size: 1.5em;
     margin-bottom: 1em;
-    color: #E6D6C1; /* Light beige text color */
+    color: #E6D6C1;
 }
 
 .login-box form {
@@ -79,7 +153,7 @@ main {
 
 .login-box input[type="text"],
 .login-box input[type="password"] {
-    background-color: #E6D6C1; /* Light beige background for contrast */
+    background-color: #E6D6C1; /* Light beige background */
     color: #061826; /* Dark text color for readability */
     padding: 0.5em;
     margin: 0.5em 0;
@@ -109,7 +183,7 @@ main {
 }
 
 .login-box a:hover {
-    color: #E6D6C1; /* Light beige color on hover */
+    color: #E6D6C1;
 }
 
 /* Footer */
@@ -117,7 +191,7 @@ footer {
     text-align: center;
     padding: 1em;
     background-color: #1A303F; /* Dark navy color */
-    color: #E6D6C1; /* Light beige text color */
+    color: #E6D6C1;
     width: 100%;
 }
 
@@ -149,13 +223,13 @@ footer {
 }
 
 .popup h2 {
-    color: #E6D6C1; /* Light beige color */
+    color: #E6D6C1;
     font-size: 1.5em;
     margin-bottom: 1em;
 }
 
 .popup label {
-    color: #E6D6C1; /* Light beige color */
+    color: #E6D6C1;
     font-size: 1em;
     display: block;
     margin: 0.5em 0 0.2em;
@@ -169,14 +243,13 @@ footer {
     border: none;
     border-radius: 5px;
     margin-bottom: 1em;
-    background-color: #E6D6C1; /* Light beige background */
-    color: #061826; /* Dark text color for readability */
+    background-color: #E6D6C1;
+    color: #061826;
     font-size: 1em;
-    text-align: left;
 }
 
 .popup button {
-    background-color: #1A303F; /* Dark navy color */
+    background-color: #1A303F;
     color: #E6D6C1;
     border: none;
     padding: 0.7em 1.5em;
@@ -186,122 +259,16 @@ footer {
 }
 
 .popup button:hover {
-    background-color: #607D7E; /* Light teal color on hover */
+    background-color: #607D7E;
 }
 
 .popup .close {
     position: absolute;
     top: 10px;
     right: 10px;
-    color: #E6D6C1; /* Light beige color */
+    color: #E6D6C1;
     font-size: 1.5em;
     text-decoration: none;
-    cursor: pointer;
-}
-
-/* Library Page Styles */
-.library-section {
-    text-align: center;
-    color: #E6D6C1;
-    padding: 2em;
-}
-
-.library-intro {
-    font-size: 1.1em;
-    margin-bottom: 1em;
-    color: #7E695C; /* Brownish color for the introductory text */
-}
-
-.game-grid {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 2em;
-}
-
-.game-card {
-    background-color: #2B505C; /* Background color for each game card */
-    padding: 1.5em;
-    border-radius: 10px;
-    text-align: center;
-    width: 220px;
-    color: #E6D6C1;
-}
-
-.game-card img {
-    width: 100%;
-    height: auto;
-    border-radius: 5px;
-    margin-bottom: 1em;
-}
-
-.game-card h2 {
-    font-size: 1.2em;
-    margin: 0.5em 0;
-}
-
-.game-card p {
-    font-size: 0.9em;
-    color: #7E695C; /* Slightly darker text color for descriptions */
-}
-
-/* Ratings Page Styles */
-.ratings-section {
-    text-align: center;
-    color: #E6D6C1;
-    padding: 2em;
-}
-
-.ratings-intro {
-    font-size: 1.1em;
-    margin-bottom: 1em;
-    color: #7E695C; /* Brownish color for the introductory text */
-}
-
-.ratings-grid {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 2em;
-}
-
-.rating-card {
-    background-color: #2B505C; /* Background color for each rating card */
-    padding: 1.5em;
-    border-radius: 10px;
-    text-align: center;
-    width: 220px;
-    color: #E6D6C1;
-}
-
-.rating-card h2 {
-    font-size: 1.2em;
-    margin: 0.5em 0;
-}
-
-.rating-card p {
-    font-size: 1em;
-    color: #7E695C; /* Slightly darker text color for ratings */
-}
-
-/* User Reviews */
-.review {
-    margin-top: 1em;
-    text-align: left;
-}
-
-.review h3 {
-    font-size: 1em;
-    color: #E6D6C1; /* Light beige text color */
-    margin-bottom: 0.5em;
-}
-
-.review p {
-    font-size: 0.9em;
-    color: #7E695C; /* Slightly darker text color for reviews */
-    background-color: #2B505C; /* Background color for review text */
-    padding: 0.5em;
-    border-radius: 5px;
 }
 
 /* Profile Page Styles */
@@ -314,11 +281,11 @@ footer {
 .profile-intro {
     font-size: 1.1em;
     margin-bottom: 1em;
-    color: #7E695C; /* Brownish color for the introductory text */
+    color: #7E695C;
 }
 
 .profile-card {
-    background-color: #2B505C; /* Background color for each profile section */
+    background-color: #2B505C;
     padding: 1.5em;
     border-radius: 10px;
     text-align: left;
@@ -338,7 +305,7 @@ footer {
 }
 
 .profile-button {
-    background-color: #1A303F; /* Dark navy color */
+    background-color: #1A303F;
     color: #E6D6C1;
     border: none;
     padding: 0.7em;
@@ -350,5 +317,68 @@ footer {
 }
 
 .profile-button:hover {
-    background-color: #607D7E; /* Light teal color on hover */
+    background-color: #607D7E;
+}
+
+/* Ratings Page Styles */
+.ratings-section {
+    text-align: center;
+    color: #E6D6C1;
+    padding: 2em;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.ratings-intro {
+    font-size: 1.1em;
+    margin-bottom: 1em;
+    color: #7E695C;
+}
+
+.ratings-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 2em;
+    padding-top: 1em;
+}
+
+.rating-card {
+    background-color: #2B505C;
+    padding: 1.5em;
+    border-radius: 10px;
+    text-align: left;
+    width: 220px;
+    color: #E6D6C1;
+}
+
+.rating-card h2 {
+    font-size: 1.2em;
+    margin: 0.5em 0;
+}
+
+.rating-card p {
+    font-size: 1em;
+    color: #7E695C;
+    margin-bottom: 0.5em;
+}
+
+/* User Reviews Styling */
+.review {
+    margin-top: 1em;
+    text-align: left;
+}
+
+.review h3 {
+    font-size: 1em;
+    color: #E6D6C1;
+    margin-bottom: 0.5em;
+}
+
+.review p {
+    font-size: 0.9em;
+    color: #7E695C;
+    background-color: #2B505C;
+    padding: 0.5em;
+    border-radius: 5px;
 }
