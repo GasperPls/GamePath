@@ -10,13 +10,13 @@ import { getAuth, createUserWithEmailAndPassword, onAuthStateChanged } from "htt
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-  apiKey: "AIzaSyC2FcmDPTGkDRUg5a64YQWr_NNdquwCXZU",
-  authDomain: "gamepath-1.firebaseapp.com",
-  projectId: "gamepath-1",
-  storageBucket: "gamepath-1.firebasestorage.app",
-  messagingSenderId: "662366695392",
-  appId: "1:662366695392:web:afc686c6808ff2606c0585",
-  measurementId: "G-RGJCZMG3N1"
+  apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
+  authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,
+  projectId: process.env.REACT_APP_FIREBASE_PROJECT_ID,
+  storageBucket: process.env.REACT_APP_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: process.env.REACT_APP_FIREBASE_MESSAGEING_SENDER_ID,
+  appId: process.env.REACT_APP_FIREBASE_APP_ID,
+  measurementId: process.env.REACT_APP_FIREBASE_MEASUREMENT_ID,
 };
 
 // Initialize Firebase
