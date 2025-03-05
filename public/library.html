@@ -22,47 +22,53 @@
 
     <!-- Main Content -->
     <main>
-        <section class="library-section">
-            <h1>Your Game Library</h1>
-            <p class="library-intro">Explore your game collection below. You can check out the details of each game in your library.</p>
-            <div class="game-grid">
-                <div class="game-card">
-                    <img src="game1.jpg" alt="Game 1">
-                    <h2>Game Title 1</h2>
-                    <p>Description of Game 1.</p>
+        <div id="searchContentBox">
+            <h1>Game Library</h1>
+            <form class="searchContent">
+                <label for="gameSearch">Search Videogames </label><br><br>
+                <input type="search" id="inputGameSearch" placeholder="Videogame..."> 
+                <div class="sidenav">
+                    <div id="filter-section">
+                        <ul class="filter-company" onclick="toggleView()"> Company<br>
+                            <div id="checkbox-group">
+                                <label><input type="checkbox"> Nintendo</label><br>
+                                <label><input type="checkbox"> Sony</label><br>
+                                <label><input type="checkbox"> Microsoft</label><br>
+                                <label><input type="checkbox"> Steam</label><br>
+                            </div>
+                        </ul>
+                    </div><br><br><br>
+                    <div id="filter-section">
+                        <div class="filter-esrb-rating" onclick=""> ESRB Rating <br>
+                            <div id="checkbox-group">
+                                <label><input type="checkbox"> Everyone</label><br>
+                                <label><input type="checkbox"> Everyone 10+</label><br>
+                                <label><input type="checkbox"> Teen</label><br>
+                                <label><input type="checkbox"> Mature 17+</label><br>
+                                <label><input type="checkbox"> Adult 18+</label><br>
+                            </div>
+                        </div>
+                    </div><br><br><br>
+                    <div id="filter-section">
+                        <div class="filter-genre" onclick=""> Genre <br>
+                            <div id="checkbox-group">
+                                <label><input type="checkbox"> Action</label><br>
+                                <label><input type="checkbox"> Adventure</label><br>
+                                <label><input type="checkbox"> Platformer</label><br>
+                                <label><input type="checkbox"> Shooter</label><br>
+                                <label><input type="checkbox"> Fighting</label><br>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="game-card">
-                    <img src="game2.jpg" alt="Game 2">
-                    <h2>Game Title 2</h2>
-                    <p>Description of Game 2.</p>
-                </div>
-                <div class="game-card">
-                    <img src="game3.jpg" alt="Game 3">
-                    <h2>Game Title 3</h2>
-                    <p>Description of Game 3.</p>
-                </div>
-                <div class="game-card">
-                    <img src="game4.jpg" alt="Game 4">
-                    <h2>Game Title 4</h2>
-                    <p>Description of Game 4.</p>
-                </div>
-                <div class="game-card">
-                    <img src="game5.jpg" alt="Game 5">
-                    <h2>Game Title 5</h2>
-                    <p>Description of Game 5.</p>
-                </div>
-                <div class="game-card">
-                    <img src="game6.jpg" alt="Game 6">
-                    <h2>Game Title 6</h2>
-                    <p>Description of Game 6.</p>
-                </div>
-            </div>
-        </section>
+                <button id="searchBtn">Search</button>
+            </form>
+        </div>
     </main>
 
     <!-- Footer -->
     <footer>
-        <p>© 2024 GamePath. All rights reserved.</p>
+        <p>© 2025 GamePath. All rights reserved.</p>
     </footer>
 
 </body>

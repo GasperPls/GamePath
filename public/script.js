@@ -69,7 +69,6 @@ const auth = getAuth(app);
 */
 
 
-////_________________________ TESTING LOGIN FUNCTIONS + CREDENTIALS _________________________////
 // Registration Form
 const register = document.querySelector('#regForm');
 if(register) {
@@ -130,4 +129,14 @@ if(logout) {
       location.href = "/index.html";
     });
   });
+}
+
+
+function toggleView(id) {
+  var temp = document.getElementById(id);
+  if (temp.style.display === "none") {
+    temp.style.display = "block";
+  } else {
+    temp.style.display = "none";
+  }
 }
