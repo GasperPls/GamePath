@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile Setup</title>
+    <link rel="stylesheet" href="indexstyle.css">
+    <style>
+        .container {
+            background-color: #2B505C;
+            padding: 2em;
+            border-radius: 10px;
+            text-align: center;
+            width: 400px;
+            margin: 3em auto;
+            box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.3);
+        }
+        .options label {
+            display: block;
+            background-color: #E6D6C1;
+            color: #061826;
+            padding: 5px;
+            margin: 5px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
+    <script>
+        function validateImage() {
+            const fileInput = document.getElementById("profilePicture");
+            const file = fileInput.files[0];
+
+            if (file) {
+                if (file.size > 2 * 1024 * 1024) {
+                    alert("Profile picture must be less than 2MB.");
+                    fileInput.value = "";
+                    return false;
+                }
+                const reader = new FileReader();
+                reader.onload = function(event) {
+                    localStorage.setItem("profilePicture", event.target.result);
+                    console.log("Profile picture stored:", event.target.result);
+                };
+                reader.readAsDataURL(file);
+            }
+            return true;
+        }
+
+        function submitProfileSetup(event) {
+            event.preventDefault();
+            if (validateImage()) {
+                const favoriteGenres = Array.from(document.querySelectorAll('input[name="genres"]:checked')).map(el => el.value);
+                const gamingPlatforms = Array.from(document.querySelectorAll('input[name="platforms"]:checked')).map(el => el.value);
+
+                localStorage.setItem("favoriteGenres", JSON.stringify(favoriteGenres));
+                localStorage.setItem("gamingPlatforms", JSON.stringify(gamingPlatforms));
+
+                console.log("Stored Genres:", favoriteGenres);
+                console.log("Stored Platforms:", gamingPlatforms);
+
+                alert("Profile setup completed successfully!");
+                window.location.href = "profile.html";
+            }
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h2>Complete Your Profile</h2>
+        <form id="profileSetupForm" onsubmit="submitProfileSetup(event)">
+            <label for="profilePicture">Upload Profile Picture (Max 2MB):</label>
+            <input type="file" id="profilePicture" accept="image/*" required onchange="validateImage()">
+
+            <label>Favorite Game Genres:</label>
+            <div class="options">
+                <label><input type="checkbox" name="genres" value="Action"> Action</label>
+                <label><input type="checkbox" name="genres" value="Adventure"> Adventure</label>
+                <label><input type="checkbox" name="genres" value="RPG"> RPG</label>
+                <label><input type="checkbox" name="genres" value="FPS"> FPS</label>
+                <label><input type="checkbox" name="genres" value="Strategy"> Strategy</label>
+                <label><input type="checkbox" name="genres" value="Sports"> Sports</label>
+            </div>
+
+            <label>Preferred Gaming Platforms:</label>
+            <div class="options">
+                <label><input type="checkbox" name="platforms" value="PC"> PC</label>
+                <label><input type="checkbox" name="platforms" value="PlayStation"> PlayStation</label>
+                <label><input type="checkbox" name="platforms" value="Xbox"> Xbox</label>
+                <label><input type="checkbox" name="platforms" value="Nintendo"> Nintendo</label>
+                <label><input type="checkbox" name="platforms" value="Mobile"> Mobile</label>
+            </div>
+
+            <button type="submit">Finish Setup</button>
+        </form>
+    </div>
+</body>
+</html>

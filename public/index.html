@@ -29,8 +29,9 @@
     
     document.addEventListener("DOMContentLoaded", function() {
       document.getElementById("registerForm").addEventListener("submit", function(event) {
-        if (!validatePassword()) {
-          event.preventDefault();
+        event.preventDefault();
+        if (validatePassword()) {
+          window.location.href = "profile-setup.html"; // Redirect after successful registration
         }
       });
     });
