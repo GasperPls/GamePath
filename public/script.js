@@ -75,8 +75,8 @@ if(register) {
   register.addEventListener('submit', (e) => {
     e.preventDefault();
 
-    const email = regForm['regEmail'].value;
-    const password = regForm['regPassword'].value;
+    const email = register["regEmail"].value;
+    const password = register["regPassword"].value;    
     //const repass = regForm['regRepassword'].value;
    
     createUserWithEmailAndPassword(auth, email, password).then(cred => {
