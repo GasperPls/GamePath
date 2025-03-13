@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile - GamePath</title>
+    <link rel="stylesheet" href="indexstyle.css"> <!-- Link to the existing CSS file -->
+</head>
+<body>
+
+    <!-- Navigation Bar -->
+    <header>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="library.html">Library</a></li>
+                <li><a href="ratings.html">Ratings</a></li>
+                <li><a href="profile.html">Profile</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        <section class="profile-section">
+            <h1>User Profile</h1>
+            <p class="profile-intro">View and update your profile information below.</p>
+            
+            <!-- Basic Information -->
+            <div class="profile-card">
+                <h2>Basic Information</h2>
+                <p><strong>Username:</strong> <span id="username">Loading...</span></p>
+                <p><strong>Email:</strong> <span id="email">Loading...</span></p>
+                <p><strong>Member Since:</strong> <span id="memberSince">Loading...</span></p>
+            </div>
+
+            <!-- Gaming Preferences -->
+            <div class="profile-card">
+                <h2>Gaming Preferences</h2>
+                <p><strong>Favorite Genres:</strong> <span id="genres">Loading...</span></p>
+                <p><strong>Platform:</strong> <span id="platform">Loading...</span></p>
+            </div>
+
+            <!-- Account Settings -->
+            <div class="profile-card">
+                <h2>Account Settings</h2>
+                <button class="profile-button" onclick="editProfile()">Edit Profile</button>
+                <button class="profile-button">Change Password</button>
+                <button class="profile-button">Delete Account</button>
+            </div>
+        </section>
+    </main>
+
+    <!-- Firebase Script -->
+    <script type="module" src="profile.js"></script>
+
+    <!-- Footer -->
+    <footer>
+        <p>© 2024 GamePath. All rights reserved.</p>
+    </footer>
+
+</body>
+</html>
