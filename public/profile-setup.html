@@ -24,6 +24,10 @@
             border-radius: 5px;
             cursor: pointer;
         }
+        .section-title {
+            font-weight: bold;
+            margin-top: 15px;
+        }
     </style>
     <script>
         function validateImage() {
@@ -71,7 +75,7 @@
             <label for="profilePicture">Upload Profile Picture (Max 2MB):</label>
             <input type="file" id="profilePicture" accept="image/*" required onchange="validateImage()">
 
-            <label>Favorite Game Genres:</label>
+            <div class="section-title">Favorite Game Genres:</div>
             <div class="options">
                 <label><input type="checkbox" name="genres" value="Action"> Action</label>
                 <label><input type="checkbox" name="genres" value="Adventure"> Adventure</label>
@@ -81,7 +85,7 @@
                 <label><input type="checkbox" name="genres" value="Sports"> Sports</label>
             </div>
 
-            <label>Preferred Gaming Platforms:</label>
+            <div class="section-title">Preferred Gaming Platforms:</div>
             <div class="options">
                 <label><input type="checkbox" name="platforms" value="PC"> PC</label>
                 <label><input type="checkbox" name="platforms" value="PlayStation"> PlayStation</label>
