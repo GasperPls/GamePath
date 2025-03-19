@@ -1,5 +1,26 @@
 {
   "dependencies": {
-    "firebase": "^11.0.1"
-  }
+    "cors": "^2.8.5",
+    "express": "^4.21.2",
+    "firebase": "^11.0.1",
+    "node-fetch": "^3.3.2"
+  },
+  "name": "gamepath",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Krisbprog/GamePath.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Krisbprog/GamePath/issues"
+  },
+  "homepage": "https://github.com/Krisbprog/GamePath#readme",
+  "description": ""
 }
