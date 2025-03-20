@@ -72,7 +72,6 @@ main {
     padding: 2em;
 }
 
-
 /* Library Section */
 .library-section {
     text-align: center;
@@ -120,9 +119,6 @@ main {
     font-size: 0.9em;
     color: #7E695C;
 }
-
-
-
 
 /* Login Section */
 .login-section {
@@ -273,10 +269,29 @@ footer {
 
 /* Profile Page Styles */
 .profile-section {
-    text-align: center;
-    color: #E6D6C1;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
+    width: 100%;
+    height: 100vh;
     padding: 2em;
 }
+.favorite-games {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5em;
+    justify-content: flex-start;
+    align-items: flex-start;
+    width: 75%;
+    height: 100%;
+    padding: 2em;
+}
+.favorite-games {
+    background-color: rgba(255, 255, 255, 0.1); /* Light opacity for visibility */
+    border: 1px solid red; /* Temporary border to see layout */
+}
+
 
 .profile-intro {
     font-size: 1.1em;
@@ -320,6 +335,14 @@ footer {
     background-color: #607D7E;
 }
 
+/* Container for buttons at the bottom */
+.profile-actions {
+    width: 300px; /* Match the width of the profile card */
+    margin-top: auto; /* Push to the bottom */
+    padding: 1em 0;
+    text-align: left; /* Align buttons to the left */
+}
+
 /* Ratings Page Styles */
 .ratings-section {
     text-align: center;
@@ -353,32 +376,4 @@ footer {
 }
 
 .rating-card h2 {
-    font-size: 1.2em;
-    margin: 0.5em 0;
-}
-
-.rating-card p {
-    font-size: 1em;
-    color: #7E695C;
-    margin-bottom: 0.5em;
-}
-
-/* User Reviews Styling */
-.review {
-    margin-top: 1em;
-    text-align: left;
-}
-
-.review h3 {
-    font-size: 1em;
-    color: #E6D6C1;
-    margin-bottom: 0.5em;
-}
-
-.review p {
-    font-size: 0.9em;
-    color: #7E695C;
-    background-color: #2B505C;
-    padding: 0.5em;
-    border-radius: 5px;
-}
+    font-size: 1.2em

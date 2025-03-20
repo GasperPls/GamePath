@@ -4,82 +4,100 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Profile</title>
-    <link rel="stylesheet" href="indexstyle.css">
-    <style>
-        .profile-container {
-            background-color: #2B505C;
-            padding: 2em;
-            border-radius: 10px;
-            text-align: center;
-            width: 450px;
-            margin: 3em auto;
-            box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.3);
-        }
-        .profile-picture {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            object-fit: cover;
-            margin-top: 10px;
-            border: 3px solid #E6D6C1;
-        }
-        .profile-card {
-            background-color: #1A303F;
-            padding: 1.5em;
-            border-radius: 10px;
-            text-align: left;
-            margin: 1em 0;
-            color: #E6D6C1;
-        }
-        .profile-button {
-            width: 100%;
-            padding: 0.8em;
-            background: #1A303F;
-            color: #E6D6C1;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 1.1em;
-        }
-        .profile-button:hover {
-            background: #607D7E;
-        }
-    </style>
+    <link rel="stylesheet" href="indexstyle.css"> <!-- Ensure this file exists and is updated -->
+
     <script>
         function loadProfile() {
-            const profilePicture = localStorage.getItem("profilePicture");
+            const profilePicture = localStorage.getItem("profilePicture") || 'default-avatar.png';
             const favoriteGenres = JSON.parse(localStorage.getItem("favoriteGenres")) || [];
             const gamingPlatforms = JSON.parse(localStorage.getItem("gamingPlatforms")) || [];
 
-            console.log("Retrieved profile picture:", profilePicture);
-            console.log("Retrieved Genres:", favoriteGenres);
-            console.log("Retrieved Platforms:", gamingPlatforms);
-
-            if (profilePicture) {
-                document.getElementById("profilePic").src = profilePicture;
-            }
-
+            document.getElementById("profilePic").style.backgroundImage = `url(${profilePicture})`;
             document.getElementById("favoriteGenres").textContent = favoriteGenres.length ? favoriteGenres.join(", ") : "Not set";
             document.getElementById("gamingPlatforms").textContent = gamingPlatforms.length ? gamingPlatforms.join(", ") : "Not set";
+
+            loadGames(favoriteGenres);
+        }
+
+        function loadGames(genres) {
+            const gameList = document.getElementById("gameList");
+            gameList.innerHTML = "";
+
+            const sampleGames = [
+                { name: "Game A", genre: "Action", img: "game-a.png" },
+                { name: "Game B", genre: "RPG", img: "game-b.png" },
+                { name: "Game C", genre: "Strategy", img: "game-c.png" }
+            ];
+
+            let filteredGames = sampleGames.filter(game => genres.includes(game.genre));
+            if (filteredGames.length === 0) filteredGames = sampleGames;
+
+            filteredGames.forEach(game => {
+                const gameCard = document.createElement("div");
+                gameCard.classList.add("game-card");
+                gameCard.innerHTML = `<img src='${game.img}' alt='${game.name}'><p>${game.name}</p>`;
+                gameList.appendChild(gameCard);
+            });
         }
 
         document.addEventListener("DOMContentLoaded", loadProfile);
     </script>
 </head>
 <body>
+    <!-- Profile Section Wrapper (NEW FIX) -->
+    <div class="profile-section">
 
-    <div class="profile-container">
-        <h1>User Profile</h1>
-        <img id="profilePic" class="profile-picture" src="default-avatar.png" alt="Profile Picture">
-        
-        <div class="profile-card">
-            <h2>Gaming Preferences</h2>
-            <p><strong>Favorite Genres:</strong> <span id="favoriteGenres">Loading...</span></p>
-            <p><strong>Preferred Platforms:</strong> <span id="gamingPlatforms">Loading...</span></p>
+        <!-- Sidebar (User Profile) -->
+        <div class="sidebar">
+            <div id="profilePic" class="profile-picture"></div>
+            <div class="profile-card">
+                <h2>User Profile</h2>
+                <p><strong>Favorite Genres:</strong> <span id="favoriteGenres">Loading...</span></p>
+                <p><strong>Preferred Platforms:</strong> <span id="gamingPlatforms">Loading...</span></p>
+            </div>
+            <div class="button-container">
+                <button class="profile-button" onclick="window.location.href='profile-setup.html'">Edit Profile</button>
+                <button class="profile-button" onclick="window.location.href='logout.html'">Log Out</button>
+            </div>
         </div>
 
-        <button class="profile-button" onclick="window.location.href='profile-setup.html'">Edit Profile</button>
+        <!-- Favorite Games Section -->
+        <div class="favorite-games">
+            <h1>Favorite Games</h1>
+            <div class="game-section">
+                <div class="games-container" id="gameList">
+                    <p>Loading recommended games...</p>
+                </div>
+            </div>
+        </div>
     </div>
 
+    <!-- Game Footage Section -->
+    <div class="game-footage-section">
+        <h2>Game Footage</h2>
+        <div class="game-footage-container">
+            <div class="game-footage-box">
+                <video controls>
+                    <source src="https://www.sample-videos.com/video123/mp4/720/big_buck_bunny_720p_1mb.mp4" type="video/mp4">
+                    Your browser does not support the video tag or the file is missing.
+                </video>
+                <p>Game A Footage</p>
+            </div>
+            <div class="game-footage-box">
+                <video controls>
+                    <source src="https://www.sample-videos.com/video123/mp4/720/big_buck_bunny_720p_1mb.mp4" type="video/mp4">
+                    Your browser does not support the video tag or the file is missing.
+                </video>
+                <p>Game B Footage</p>
+            </div>
+            <div class="game-footage-box">
+                <video controls>
+                    <source src="https://www.sample-videos.com/video123/mp4/720/big_buck_bunny_720p_1mb.mp4" type="video/mp4">
+                    Your browser does not support the video tag or the file is missing.
+                </video>
+                <p>Game C Footage</p>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
