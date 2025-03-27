@@ -1,87 +1,251 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ratings - GamePath</title>
-    <link rel="stylesheet" href="indexstyle.css"> <!-- Link to the existing CSS file -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Game Ratings - GamePath</title>
+  <link rel="stylesheet" href="indexstyle.css">
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    .search-container {
+      text-align: center;
+      margin: 20px auto;
+      position: relative;
+    }
+
+    #searchInput {
+      padding: 12px;
+      width: 300px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      font-size: 16px;
+    }
+
+    #searchSuggestions {
+      position: absolute;
+      top: 48px;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: white;
+      color: black;
+      border: 1px solid #ccc;
+      border-top: none;
+      width: 300px;
+      z-index: 1000;
+      border-radius: 0 0 8px 8px;
+      max-height: 200px;
+      overflow-y: auto;
+    }
+
+    .suggestion {
+      padding: 10px;
+      cursor: pointer;
+    }
+
+    .suggestion:hover {
+      background-color: #eee;
+    }
+
+    .ratings-grid {
+      display: flex;
+      gap: 20px;
+      padding: 20px;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+     }
+
+    .rating-card {
+      flex: 0 0 300px;
+      scroll-snap-align: start;
+    }
+
+
+    .review-form textarea {
+      width: 100%;
+      margin-top: 10px;
+      border-radius: 6px;
+      padding: 8px;
+      border: 1px solid #aaa;
+      resize: vertical;
+    }
+
+    .review-form button {
+      margin-top: 10px;
+      background-color: #4caf50;
+      color: white;
+      border: none;
+      padding: 10px;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    .review-form button:hover {
+      background-color: #388e3c;
+    }
+
+    .star-rating {
+      display: flex;
+      flex-direction: row-reverse;
+      justify-content: flex-start;
+    }
+
+    .star-rating input {
+      display: none;
+    }
+
+    .star-rating label {
+      font-size: 18px;
+      color: #ccc;
+      cursor: pointer;
+    }
+
+    .star-rating input:checked ~ label,
+    .star-rating label:hover,
+    .star-rating label:hover ~ label {
+      color: gold;
+    }
+  </style>
 </head>
 <body>
 
-    <!-- Navigation Bar -->
-    <header>
-        <nav>
-            <ul>
-                <li><a href="index.html">Home</a></li>
-                <li><a href="library.html">Library</a></li>
-                <li><a href="ratings.html">Ratings</a></li>
-                <li><a href="profile.html">Profile</a></li>
-            </ul>
-        </nav>
-    </header>
+  <header>
+    <nav>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="library.html">Library</a></li>
+        <li><a href="ratings.html">Ratings</a></li>
+        <li><a href="profile.html">Profile</a></li>
+      </ul>
+    </nav>
+  </header>
 
-    <!-- Main Content -->
-    <main>
-        <section class="ratings-section">
-            <h1>Game Ratings</h1>
-            <p class="ratings-intro">Check out the ratings and reviews for each game in your library. Rate your favorites and see how they compare!</p>
-            <div class="ratings-grid">
-                <div class="rating-card">
-                    <h2>Game Title 1</h2>
-                    <p>Rating: ★★★★☆ (4/5)</p>
-                    <div class="review">
-                        <h3>User Reviews:</h3>
-                        <p>"A fantastic game with great graphics and gameplay!"</p>
-                    </div>
-                </div>
-                <div class="rating-card">
-                    <h2>Game Title 2</h2>
-                    <p>Rating: ★★★☆☆ (3/5)</p>
-                    <div class="review">
-                        <h3>User Reviews:</h3>
-                        <p>"Fun for a while, but it gets repetitive."</p>
-                    </div>
-                </div>
-                <div class="rating-card">
-                    <h2>Game Title 3</h2>
-                    <p>Rating: ★★★★★ (5/5)</p>
-                    <div class="review">
-                        <h3>User Reviews:</h3>
-                        <p>"Absolutely loved every moment of it! Highly recommended."</p>
-                    </div>
-                </div>
-                <div class="rating-card">
-                    <h2>Game Title 4</h2>
-                    <p>Rating: ★★★★☆ (4/5)</p>
-                    <div class="review">
-                        <h3>User Reviews:</h3>
-                        <p>"Great mechanics, but the story could be better."</p>
-                    </div>
-                </div>
-                <div class="rating-card">
-                    <h2>Game Title 5</h2>
-                    <p>Rating: ★★☆☆☆ (2/5)</p>
-                    <div class="review">
-                        <h3>User Reviews:</h3>
-                        <p>"Not what I expected. Needs more work."</p>
-                    </div>
-                </div>
-                <div class="rating-card">
-                    <h2>Game Title 6</h2>
-                    <p>Rating: ★★★★☆ (4/5)</p>
-                    <div class="review">
-                        <h3>User Reviews:</h3>
-                        <p>"Solid game with lots of replay value."</p>
-                    </div>
-                </div>
+  <main>
+    <section class="ratings-section">
+      <h1 style="text-align:center">Game Ratings</h1>
+
+      <div class="search-container">
+        <input type="text" id="searchInput" placeholder="Search for a game...">
+        <div id="searchSuggestions"></div>
+      </div>
+
+      <div class="ratings-grid" id="ratingsGrid">
+        <!-- Game cards will be rendered here -->
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p style="text-align: center;">© 2024 GamePath. All rights reserved.</p>
+  </footer>
+
+  <script>
+    const games = [
+      {
+        title: "Elden Ring",
+        rating: 5,
+        review: "Incredible open world. Challenging and rewarding."
+      },
+      {
+        title: "God of War: Ragnarok",
+        rating: 4,
+        review: "Emotional storytelling, fun combat."
+      },
+      {
+        title: "Hollow Knight",
+        rating: 5,
+        review: "Perfect gameplay and exploration. 10/10"
+      },
+      {
+        title: "Cyberpunk 2077",
+        rating: 3,
+        review: "Improved a lot, still some bugs."
+      },
+      {
+        title: "Among Us",
+        rating: 4,
+        review: "Fun with friends but repetitive solo."
+      },
+      {
+        title: "Minecraft",
+        rating: 5,
+        review: "Timeless creativity. Always enjoyable."
+      }
+    ];
+
+    const ratingsGrid = document.getElementById("ratingsGrid");
+    const searchInput = document.getElementById("searchInput");
+    const suggestionsBox = document.getElementById("searchSuggestions");
+
+    function renderGames(filter = "") {
+      ratingsGrid.innerHTML = "";
+      const filtered = games.filter(game =>
+        game.title.toLowerCase().includes(filter.toLowerCase())
+      );
+
+      filtered.forEach((game, index) => {
+        const card = document.createElement("div");
+        card.className = "rating-card";
+        card.innerHTML = `
+          <h2>${game.title}</h2>
+          <p>Rating: ${"★".repeat(game.rating)}${"☆".repeat(5 - game.rating)} (${game.rating}/5)</p>
+          <div class="review">
+            <h3>User Reviews:</h3>
+            <p>"${game.review}"</p>
+          </div>
+          <form class="review-form">
+            <label>Your Rating:</label>
+            <div class="star-rating">
+              ${[5, 4, 3, 2, 1].map(i => `
+                <input type="radio" id="star${i}-${index}" name="rating${index}" value="${i}">
+                <label for="star${i}-${index}">★</label>
+              `).join("")}
             </div>
-        </section>
-    </main>
+            <textarea maxlength="2000" placeholder="Write your review (max 2000 characters)..."></textarea>
+            <button type="submit">Submit Review</button>
+          </form>
+        `;
+        ratingsGrid.appendChild(card);
+      });
+    }
 
-    <!-- Footer -->
-    <footer>
-        <p>© 2024 GamePath. All rights reserved.</p>
-    </footer>
+    function updateSuggestions() {
+      const input = searchInput.value.toLowerCase();
+      suggestionsBox.innerHTML = "";
 
+      if (!input) return;
+
+      const matches = games.filter(game =>
+        game.title.toLowerCase().includes(input)
+      );
+
+      matches.forEach(game => {
+        const div = document.createElement("div");
+        div.className = "suggestion";
+        div.textContent = game.title;
+        div.onclick = () => {
+          searchInput.value = game.title;
+          suggestionsBox.innerHTML = "";
+          renderGames(game.title);
+        };
+        suggestionsBox.appendChild(div);
+      });
+    }
+
+    searchInput.addEventListener("input", () => {
+      updateSuggestions();
+      renderGames(searchInput.value);
+    });
+
+    document.addEventListener("click", (e) => {
+      if (!e.target.closest(".search-container")) {
+        suggestionsBox.innerHTML = "";
+      }
+    });
+
+    renderGames(); // Initial load
+  </script>
 </body>
 </html>
