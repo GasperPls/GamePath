@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GameSphere - Community Game Reviews</title>
+    <style>
+        :root {
+            --primary: #2c3e50;
+            --secondary: #3498db;
+            --accent: #e74c3c;
+            --light: #ecf0f1;
+            --dark: #2c3e50;
+            --success: #2ecc71;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        header {
+            background-color: var(--primary);
+            color: white;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: white;
+            text-decoration: none;
+        }
+        
+        .logo span {
+            color: var(--accent);
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin-left: 1.5rem;
+        }
+        
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        nav ul li a:hover {
+            color: var(--secondary);
+        }
+        
+        .user-actions a {
+            margin-left: 1rem;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        
+        .login {
+            color: white;
+            border: 1px solid white;
+        }
+        
+        .signup {
+            background-color: var(--accent);
+            color: white;
+        }
+        
+        main {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+            display: grid;
+            grid-template-columns: 3fr 1fr;
+            gap: 2rem;
+        }
+        
+        .review-form {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            margin-bottom: 2rem;
+        }
+        
+        .review-form h2 {
+            margin-bottom: 1.5rem;
+            color: var(--primary);
+            border-bottom: 2px solid var(--light);
+            padding-bottom: 0.5rem;
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--dark);
+        }
+        
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+        
+        .form-group textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+        
+        .rating-input {
+            display: flex;
+            align-items: center;
+        }
+        
+        .rating-input span {
+            margin-right: 1rem;
+            font-weight: 600;
+        }
+        
+        .star-rating {
+            display: flex;
+            direction: rtl;
+        }
+        
+        .star-rating input {
+            display: none;
+        }
+        
+        .star-rating label {
+            color: #ddd;
+            font-size: 1.5rem;
+            padding: 0 0.2rem;
+            cursor: pointer;
+        }
+        
+        .star-rating input:checked ~ label,
+        .star-rating label:hover,
+        .star-rating label:hover ~ label {
+            color: #f8d64e;
+        }
+        
+        .submit-btn {
+            background-color: var(--secondary);
+            color: white;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            font-size: 1rem;
+            font-weight: 600;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .submit-btn:hover {
+            background-color: #2980b9;
+        }
+        
+        .recent-reviews {
+            background-color: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        
+        .recent-reviews h3 {
+            margin-bottom: 1rem;
+            color: var(--primary);
+            border-bottom: 2px solid var(--light);
+            padding-bottom: 0.5rem;
+        }
+        
+        .review-card {
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .review-card:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+        
+        .review-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+        }
+        
+        .game-title {
+            font-weight: 600;
+            color: var(--primary);
+        }
+        
+        .review-score {
+            background-color: var(--success);
+            color: white;
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+        
+        .review-meta {
+            font-size: 0.9rem;
+            color: #777;
+            margin-bottom: 0.5rem;
+        }
+        
+        .review-excerpt {
+            font-size: 0.95rem;
+            color: #555;
+        }
+        
+        .sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+        
+        .trending-games {
+            background-color: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        
+        .trending-games h3 {
+            margin-bottom: 1rem;
+            color: var(--primary);
+            border-bottom: 2px solid var(--light);
+            padding-bottom: 0.5rem;
+        }
+        
+        .game-list {
+            list-style: none;
+        }
+        
+        .game-list li {
+            margin-bottom: 0.8rem;
+            padding-bottom: 0.8rem;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .game-list li:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+        
+        .game-list a {
+            color: var(--dark);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            transition: color 0.3s;
+        }
+        
+        .game-list a:hover {
+            color: var(--secondary);
+        }
+        
+        .game-list img {
+            width: 40px;
+            height: 40px;
+            object-fit: cover;
+            border-radius: 4px;
+            margin-right: 0.8rem;
+        }
+        
+        .community-stats {
+            background-color: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        
+        .community-stats h3 {
+            margin-bottom: 1rem;
+            color: var(--primary);
+            border-bottom: 2px solid var(--light);
+            padding-bottom: 0.5rem;
+        }
+        
+        .stat-item {
+            margin-bottom: 1rem;
+        }
+        
+        .stat-item:last-child {
+            margin-bottom: 0;
+        }
+        
+        .stat-label {
+            font-size: 0.9rem;
+            color: #777;
+            margin-bottom: 0.2rem;
+        }
+        
+        .stat-value {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--primary);
+        }
+        
+        footer {
+            background-color: var(--dark);
+            color: white;
+            padding: 2rem;
+            text-align: center;
+            margin-top: 3rem;
+        }
+        
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+        }
+        
+        .footer-links a {
+            color: white;
+            margin: 0 1rem;
+            text-decoration: none;
+        }
+        
+        .footer-links a:hover {
+            text-decoration: underline;
+        }
+        
+        .copyright {
+            font-size: 0.9rem;
+            color: #bbb;
+        }
+        
+        @media (max-width: 768px) {
+            main {
+                grid-template-columns: 1fr;
+            }
+            
+            header {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            nav ul {
+                margin-top: 1rem;
+                justify-content: center;
+            }
+            
+            .user-actions {
+                margin-top: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#">Reviews</a></li>
+                <li><a href="#">Games</a></li>
+                <li><a href="#">Community</a></li>
+                <li><a href="#">News</a></li>
+            </ul>
+        </nav>
+        <div class="user-actions">
+            <a href="#" class="login">Log In</a>
+            <a href="#" class="signup">Sign Up</a>
+        </div>
+    </header>
+    
+    <main>
+        <div class="content">
+            <section class="review-form">
+                <h2>Write Your Game Review</h2>
+                <form>
+                    <div class="form-group">
+                        <label for="game-title">Game Title</label>
+                        <input type="text" id="game-title" placeholder="Enter the game title">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="game-platform">Platform</label>
+                        <select id="game-platform">
+                            <option value="">Select platform</option>
+                            <option value="pc">PC</option>
+                            <option value="ps5">PlayStation 5</option>
+                            <option value="xbox-series-x">Xbox Series X</option>
+                            <option value="switch">Nintendo Switch</option>
+                            <option value="mobile">Mobile</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Your Rating</label>
+                        <div class="rating-input">
+                            <span>0</span>
+                            <div class="star-rating">
+                                <input type="radio" id="star5" name="rating" value="5">
+                                <label for="star5">★</label>
+                                <input type="radio" id="star4" name="rating" value="4">
+                                <label for="star4">★</label>
+                                <input type="radio" id="star3" name="rating" value="3">
+                                <label for="star3">★</label>
+                                <input type="radio" id="star2" name="rating" value="2">
+                                <label for="star2">★</label>
+                                <input type="radio" id="star1" name="rating" value="1">
+                                <label for="star1">★</label>
+                            </div>
+                            <span>10</span>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="review-title">Review Title</label>
+                        <input type="text" id="review-title" placeholder="Give your review a title">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="review-content">Your Review</label>
+                        <textarea id="review-content" placeholder="Share your thoughts about the game..."></textarea>
+                    </div>
+                    
+                    <button type="submit" class="submit-btn">Submit Review</button>
+                </form>
+            </section>
+            
+            <section class="recent-reviews">
+                <h3>Recent Community Reviews</h3>
+                
+                <div class="review-card">
+                    <div class="review-header">
+                        <span class="game-title">The Legend of Zelda: Tears of the Kingdom</span>
+                        <span class="review-score">9.8</span>
+                    </div>
+                    <div class="review-meta">Posted by LinkFan92 on Nintendo Switch - 2 days ago</div>
+                    <p class="review-excerpt">An absolute masterpiece that builds upon Breath of the Wild in every way imaginable. The new building mechanics add incredible depth to the gameplay...</p>
+                </div>
+                
+                <div class="review-card">
+                    <div class="review-header">
+                        <span class="game-title">Baldur's Gate 3</span>
+                        <span class="review-score">10</span>
+                    </div>
+                    <div class="review-meta">Posted by DnD_Nerd on PC - 5 days ago</div>
+                    <p class="review-excerpt">Larian Studios has outdone themselves. This is quite possibly the best CRPG ever made, with unparalleled depth in storytelling and character development...</p>
+                </div>
+                
+                <div class="review-card">
+                    <div class="review-header">
+                        <span class="game-title">Starfield</span>
+                        <span class="review-score">7.5</span>
+                    </div>
+                    <div class="review-meta">Posted by SpaceExplorer on Xbox Series X - 1 week ago</div>
+                    <p class="review-excerpt">While it has some incredible moments and the scale is impressive, the game feels somewhat empty at times. The procedural generation shows its limits...</p>
+                </div>
+            </section>
+        </div>
+        
+        <aside class="sidebar">
+            <section class="trending-games">
+                <h3>Trending Games</h3>
+                <ul class="game-list">
+                    <li>
+                        <a href="#">
+                            <img src="https://via.placeholder.com/40" alt="Game cover">
+                            <span>Elden Ring: Shadow of the Erdtree</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <img src="https://via.placeholder.com/40" alt="Game cover">
+                            <span>Helldivers 2</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <img src="https://via.placeholder.com/40" alt="Game cover">
+                            <span>Final Fantasy VII Rebirth</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <img src="https://via.placeholder.com/40" alt="Game cover">
+                            <span>Hades II</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <img src="https://via.placeholder.com/40" alt="Game cover">
+                            <span>Dragon's Dogma 2</span>
+                        </a>
+                    </li>
+                </ul>
+            </section>
+            
+            <section class="community-stats">
+                <h3>Community Stats</h3>
+                <div class="stat-item">
+                    <div class="stat-label">Total Reviews</div>
+                    <div class="stat-value">24,817</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-label">Active Users</div>
+                    <div class="stat-value">12,492</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-label">Games Cataloged</div>
+                    <div class="stat-value">8,765</div>
+                </div>
+            </section>
+        </aside>
+    </main>
+    
+    <footer>
+        <div class="footer-links">
+            <a href="#">About Us</a>
+            <a href="#">Contact</a>
+            <a href="#">Privacy Policy</a>
+            <a href="#">Terms of Service</a>
+            <a href="#">FAQ</a>
+        </div>
+        <!-- <div class="copyright">
+            &copy; 2023 GameSphere. All rights reserved.
+        </div> -->
+    </footer>
+    
+    <script>
+        // Simple script to update the rating display
+        const starInputs = document.querySelectorAll('.star-rating input');
+        const ratingValue = document.querySelector('.rating-input span:first-child');
+        
+        starInputs.forEach(input => {
+            input.addEventListener('change', function() {
+                ratingValue.textContent = this.value;
+            });
+        });
+    </script>
+</body>
+</html>
