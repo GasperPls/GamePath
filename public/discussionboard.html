@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Discussion Board</title>
+    <title>Discussion Board: <!-- Reference to game title here --></title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -21,6 +21,10 @@
             padding: 10px;
             border: 1px solid #ddd;
             background-color: #f9f9f9;
+        }
+        .username {
+            font-weight: bold;
+            color: #0056b3;
         }
         #message-input {
             width: 100%;
@@ -42,7 +46,7 @@
 </head>
 <body>
 
-    <h1>Discussion Board</h1>
+    <h1>Discussion Board: <span id="discussion-title"><!-- Reference to game title here --></span></h1>
 
     <div id="discussion-board">
         <!-- Messages will appear here -->
@@ -52,6 +56,15 @@
     <button id="send-button">Send</button>
 
     <script>
+        // These would typically come from your site's context
+        // For example, from a global variable, data attribute, or server-side template
+        const currentUsername = window.currentUser?.username || 'Guest'; // Reference to site username
+        const discussionTitle = window.gameData?.title || 'General Discussion'; // Reference to game title
+        
+        // Set the discussion title
+        document.getElementById('discussion-title').textContent = discussionTitle;
+        document.title = `Discussion Board: ${discussionTitle}`;
+
         document.getElementById('send-button').addEventListener('click', function() {
             const messageInput = document.getElementById('message-input');
             const messageText = messageInput.value.trim();
@@ -59,7 +72,14 @@
             if (messageText !== "") {
                 const messageElement = document.createElement('div');
                 messageElement.classList.add('message');
-                messageElement.textContent = messageText;
+                
+                // Add username to message
+                const usernameElement = document.createElement('span');
+                usernameElement.classList.add('username');
+                usernameElement.textContent = currentUsername + ': ';
+                
+                messageElement.appendChild(usernameElement);
+                messageElement.appendChild(document.createTextNode(messageText));
 
                 document.getElementById('discussion-board').appendChild(messageElement);
 
