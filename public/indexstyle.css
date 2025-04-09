@@ -450,7 +450,7 @@ button[type="submit"]:hover {
     padding: 4px 8px;
     border-radius: 4px;
     margin-right: 5px;
-    font-size: 0.9em;
+    font-size: 0.9em; 
 }
 
 .games-container {
