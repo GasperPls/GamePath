@@ -428,7 +428,7 @@ button[type="submit"]:hover {
     margin-bottom: 20px;
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 } 
-
+ 
 .library-header {
     display: flex;
     justify-content: space-between;
