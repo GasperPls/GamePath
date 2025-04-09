@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Library - GamePath</title>
+    <link rel="stylesheet" href="indexstyle.css"> <!-- Link to the existing CSS file -->
+</head>
+<body>
+
+    <!-- Navigation Bar -->
+    <header>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="library.html">Search</a></li>
+                <li><a href="ratings.html">Ratings</a></li>
+                <li><a href="profile.html">Profile</a></li>
+                <li><a href="user-library.html">Library</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main id="libraries-container">
+        <h1>My Game Libraries</h1>
+        <button id="create-library-btn">Create New Library</button>
+    </main>
+    <!-- Modal for creating/editing libraries -->
+    <div id="library-modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2 id="modal-title">Create New Library</h2>
+            <form id="library-form">
+                <label for="library-name">Library Name:</label>
+                <input type="text" id="library-name" required>
+                
+                <div id="labels-container">
+                    <label>Labels:</label>
+                    <div class="label-input">
+                        <input type="text" class="label-name" placeholder="Label name">
+                        <button type="button" class="remove-label">×</button>
+                    </div>
+                </div>
+                <button type="button" id="add-label">Add Another Label</button>
+                
+                <button type="submit" id="save-btn">Save Library</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>© 2025 GamePath. All rights reserved.</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+    // DOM elements
+    const createLibraryBtn = document.getElementById('create-library-btn');
+    const librariesContainer = document.getElementById('libraries-container');
+    const modal = document.getElementById('library-modal');
+    const closeBtn = document.querySelector('.close');
+    const libraryForm = document.getElementById('library-form');
+    const addLabelBtn = document.getElementById('add-label');
+    const labelsContainer = document.getElementById('labels-container');
+    const modalTitle = document.getElementById('modal-title');
+    
+    let currentLibraryId = null;
+    let isEditMode = false;
+    
+    // Open modal for creating a new library
+    createLibraryBtn.addEventListener('click', function() {
+        isEditMode = false;
+        modalTitle.textContent = 'Create New Library';
+        libraryForm.reset();
+        labelsContainer.innerHTML = `
+            <label>Labels:</label>
+            <div class="label-input">
+                <input type="text" class="label-name" placeholder="Label name">
+                <button type="button" class="remove-label">×</button>
+            </div>
+        `;
+        modal.style.display = 'block';
+    });
+    
+    // Close modal
+    closeBtn.addEventListener('click', function() {
+        modal.style.display = 'none';
+    });
+    
+    // Add another label field
+    addLabelBtn.addEventListener('click', function() {
+        const labelInput = document.createElement('div');
+        labelInput.className = 'label-input';
+        labelInput.innerHTML = `
+            <input type="text" class="label-name" placeholder="Label name">
+            <button type="button" class="remove-label">×</button>
+        `;
+        labelsContainer.appendChild(labelInput);
+    });
+    
+    // Remove label field
+    labelsContainer.addEventListener('click', function(e) {
+        if (e.target.classList.contains('remove-label')) {
+            if (document.querySelectorAll('.label-input').length > 1) {
+                e.target.parentElement.remove();
+            }
+        }
+    });
+    
+    // Handle form submission
+    libraryForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        const libraryName = document.getElementById('library-name').value;
+        const labelInputs = document.querySelectorAll('.label-name');
+        const labels = Array.from(labelInputs).map(input => input.value.trim()).filter(label => label);
+        
+        if (isEditMode) {
+            // Update existing library
+            const libraryElement = document.getElementById(currentLibraryId);
+            libraryElement.querySelector('.library-name').textContent = libraryName;
+            
+            // Update labels display
+            const labelsElement = libraryElement.querySelector('.library-labels');
+            labelsElement.innerHTML = labels.map(label => `<span class="label">${label}</span>`).join('');
+            
+            // Update data attributes
+            libraryElement.dataset.labels = JSON.stringify(labels);
+        } else {
+            // Create new library
+            const libraryId = 'library-' + Date.now();
+            const libraryElement = document.createElement('div');
+            libraryElement.className = 'library';
+            libraryElement.id = libraryId;
+            libraryElement.dataset.labels = JSON.stringify(labels);
+            
+            libraryElement.innerHTML = `
+                <div class="library-header">
+                    <h3 class="library-name">${libraryName}</h3>
+                    <div class="library-actions">
+                        <button class="edit-library">Edit</button>
+                        <button class="add-game">Add Game</button>
+                    </div>
+                </div>
+                <div class="library-labels">
+                    ${labels.map(label => `<span class="label">${label}</span>`).join('')}
+                </div>
+                <div class="games-container"></div>
+            `;
+            
+            librariesContainer.appendChild(libraryElement);
+            
+            // Add event listeners to new library
+            setupLibraryEvents(libraryElement);
+        }
+        
+        modal.style.display = 'none';
+    });
+    
+    // Set up event listeners for a library
+    function setupLibraryEvents(libraryElement) {
+        const editBtn = libraryElement.querySelector('.edit-library');
+        const addGameBtn = libraryElement.querySelector('.add-game');
+        const gamesContainer = libraryElement.querySelector('.games-container');
+        
+        editBtn.addEventListener('click', function() {
+            enterEditMode(libraryElement);
+        });
+        
+        addGameBtn.addEventListener('click', function() {
+            // Implement your game card creation logic here
+            const gameCard = createGameCard();
+            gamesContainer.appendChild(gameCard);
+        });
+    }
+    
+    // Enter edit mode for a library
+    function enterEditMode(libraryElement) {
+        isEditMode = true;
+        currentLibraryId = libraryElement.id;
+        modalTitle.textContent = 'Edit Library';
+        
+        // Populate form with existing data
+        document.getElementById('library-name').value = libraryElement.querySelector('.library-name').textContent;
+        
+        const labels = JSON.parse(libraryElement.dataset.labels || '[]');
+        labelsContainer.innerHTML = '<label>Labels:</label>';
+        
+        labels.forEach(label => {
+            const labelInput = document.createElement('div');
+            labelInput.className = 'label-input';
+            labelInput.innerHTML = `
+                <input type="text" class="label-name" value="${label}">
+                <button type="button" class="remove-label">×</button>
+            `;
+            labelsContainer.appendChild(labelInput);
+        });
+        
+        modal.style.display = 'block';
+    }
+    
+    // Create a game card (simplified example)
+    function createGameCard() {
+        const gameCard = document.createElement('div');
+        gameCard.className = 'game-card';
+        gameCard.innerHTML = `
+            <div class="game-content">
+                <h4>New Game</h4>
+                <p>Game details here</p>
+            </div>a
+            <button class="delete-game">Delete</button>
+        `;
+        
+        gameCard.querySelector('.delete-game').addEventListener('click', function() {
+            gameCard.remove();
+        });
+        
+        return gameCard;
+    }
+});
+    </script>
+
+</body>
+</html>

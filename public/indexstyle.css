@@ -382,3 +382,161 @@ footer {
     padding: 0.5em;
     border-radius: 5px;
 }
+
+/*user-library CSS*/
+#add-label {
+    background-color: #1A303F; /* Dark navy color */
+    color: #E6D6C1; /* Light beige text */
+    border: none;
+    padding: 0.7em;
+    margin: 1em 0;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#add-label:hover {
+    background-color: #7E695C;
+}
+
+button[type="submit"] {
+    padding: 8px 10px;
+    background-color: #1A303F;
+    color: #E6D6C1;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+button[type="submit"]:hover {
+    background-color: #7E695C;
+}
+
+#create-library-btn {
+    padding: 8px 10px;
+    background-color: #E6D6C1;
+    color: #061826;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.library {
+    background-color: #2B505C;
+    border-radius: 8px;
+    padding: 15px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.library-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.library-actions button {
+    margin-left: 10px;
+}
+
+.library-labels {
+    margin-bottom: 15px;
+}
+
+.label {
+    display: inline-block;
+    background-color: #7E695C;
+    padding: 4px 8px;
+    border-radius: 4px;
+    margin-right: 5px;
+    font-size: 0.9em;
+}
+
+.games-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 15px;
+}
+
+.game-card {
+    background-color: #E6D6C1;
+    border-radius: 6px;
+    padding: 10px;
+    position: relative;
+}
+
+.delete-game {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    background-color: #f44336;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    font-size: 12px;
+    line-height: 24px;
+    text-align: center;
+    cursor: pointer;
+}
+
+/* Modal styles */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.4);
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 15% auto;
+    padding: 20px;
+    border-radius: 8px;
+    width: 80%;
+    max-width: 500px;
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.close:hover {
+    color: black;
+}
+
+.label-input {
+    display: flex;
+    margin-bottom: 10px;
+}
+
+.label-input input {
+    flex-grow: 1;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.remove-label {
+    background-color: #f44336;
+    padding: 10px;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    margin-left: 5px;
+    cursor: pointer;
+}
+
+.remove-label:hover {
+    background-color: #9e2c24;
+}
