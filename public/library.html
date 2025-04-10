@@ -25,44 +25,25 @@
         <div id="searchContentBox">
             <h1>Game Library</h1>
             <form class="searchContent">
-                <label for="gameSearch">Search Videogames </label><br><br>
-                <input type="search" id="inputGameSearch" placeholder="Videogame..."> 
+                <label for="gameSearch">Search for Video Games </label><br><br>
+                <input type="search" id="inputGameSearch" placeholder="Search a Game..."> 
                 <div class="sidenav">
                     <div id="filter-section">
                         <ul class="filter-company" onclick="toggleView()"> Company<br>
                             <div id="checkbox-group">
-                                <label><input type="checkbox"> Nintendo</label><br>
-                                <label><input type="checkbox"> Sony</label><br>
-                                <label><input type="checkbox"> Microsoft</label><br>
-                                <label><input type="checkbox"> Steam</label><br>
+                                <label><input type="checkbox" value="1270"> Nintendo</label><br>
+                                <label><input type="checkbox" value="1320"> Sony</label><br>
+                                <label><input type="checkbox" value="109"> Microsoft</label><br>
+                                <label><input type="checkbox" value="1352"> Steam</label><br>
                             </div>
                         </ul>
-                    </div><br><br><br>
-                    <div id="filter-section">
-                        <div class="filter-esrb-rating" onclick=""> ESRB Rating <br>
-                            <div id="checkbox-group">
-                                <label><input type="checkbox"> Everyone</label><br>
-                                <label><input type="checkbox"> Everyone 10+</label><br>
-                                <label><input type="checkbox"> Teen</label><br>
-                                <label><input type="checkbox"> Mature 17+</label><br>
-                                <label><input type="checkbox"> Adult 18+</label><br>
-                            </div>
-                        </div>
-                    </div><br><br><br>
-                    <div id="filter-section">
-                        <div class="filter-genre" onclick=""> Genre <br>
-                            <div id="checkbox-group">
-                                <label><input type="checkbox"> Action</label><br>
-                                <label><input type="checkbox"> Adventure</label><br>
-                                <label><input type="checkbox"> Platformer</label><br>
-                                <label><input type="checkbox"> Shooter</label><br>
-                                <label><input type="checkbox"> Fighting</label><br>
-                            </div>
-                        </div>
                     </div>
                 </div>
                 <button id="searchBtn">Search</button>
             </form>
+            <div id="game-results">
+              <!-- Search results will be displayed here-->
+            </div>
         </div>
     </main>
 
@@ -71,5 +52,109 @@
         <p>© 2025 GamePath. All rights reserved.</p>
     </footer>
 
+    <script>
+      // Replace with your IGDB API key and client ID
+      const apiKey = 'ze5s8nyeap7lt79hjpegww1b9g0eoh';
+      const clientId = '6epitxpes5udttl915kc8el5733olq';
+  
+      // Debounce function to limit API calls while typing
+      function debounce(func, delay) {
+        let timeout;
+        return function (...args) {
+          clearTimeout(timeout);
+          timeout = setTimeout(() => func.apply(this, args), delay);
+        };
+      }
+  
+      // Fetch games from IGDB API based on search query and selected companies
+      async function searchGames(query, selectedCompanies) {
+        if (!query) {
+          document.getElementById('game-results').innerHTML = '';
+          return;
+        }
+  
+        const apiUrl = 'https://cors-anywhere.herokuapp.com/https://api.igdb.com/v4/games';
+        let requestBody = `
+          fields name, cover.url;
+          search "${query}";
+          limit 10;
+        `;
+  
+        // Add company filter if any company is selected
+        if (selectedCompanies.length > 0) {
+          requestBody += `where involved_companies.company = (${selectedCompanies.join(',')});`;
+        }
+  
+        try {
+          const response = await fetch(apiUrl, {
+            method: 'POST',
+            headers: {
+              'Accept': 'application/json',
+              'Authorization': `Bearer ${apiKey}`,
+              'Client-ID': clientId
+            },
+            body: requestBody
+          });
+  
+          const data = await response.json();
+          renderGameResults(data);
+        } catch (error) {
+          console.error('Error fetching games:', error);
+        }
+      }
+  
+      // Render search results
+      function renderGameResults(games) {
+        const container = document.getElementById('game-results');
+  
+        if (games.length === 0) {
+          container.innerHTML = '<p>No games found.</p>';
+          return;
+        }
+  
+        const list = document.createElement('ul');
+        games.forEach(game => {
+          const listItem = document.createElement('li');
+          listItem.textContent = game.name;
+  
+          // Display cover image if available
+          if (game.cover) {
+            const coverUrl = `https://images.igdb.com/igdb/image/upload/t_cover_small/${game.cover.url.split('/').pop()}`;
+            const coverImg = document.createElement('img');
+            coverImg.src = coverUrl;
+            coverImg.alt = game.name;
+            coverImg.style.width = '50px';
+            coverImg.style.marginRight = '10px';
+            listItem.prepend(coverImg);
+          }
+  
+          list.appendChild(listItem);
+        });
+  
+        container.innerHTML = ''; // Clear previous results
+        container.appendChild(list);
+      }
+  
+      // Attach event listeners
+      document.getElementById('searchBtn').addEventListener('click', () => {
+        const query = document.getElementById('inputGameSearch').value.trim();
+        const selectedCompanies = Array.from(document.querySelectorAll('#checkbox-group input:checked'))
+          .map(checkbox => checkbox.value);
+        searchGames(query, selectedCompanies);
+      });
+  
+      document.getElementById('inputGameSearch').addEventListener(
+        'input',
+        debounce((event) => {
+          const query = event.target.value.trim();
+          const selectedCompanies = Array.from(document.querySelectorAll('#checkbox-group input:checked'))
+            .map(checkbox => checkbox.value);
+          searchGames(query, selectedCompanies);
+        }, 300) // Debounce delay of 300ms
+      );
+    </script>
+  
+  </body>
+  </html>
 </body>
 </html>
