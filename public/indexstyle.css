@@ -198,8 +198,6 @@ main {
     color: #7E695C;
 }
 
-<<<<<<< HEAD
-=======
 #searchBtn {
     background-color: #1A303F; /* Dark navy color */
     color: #E6D6C1; /* Light beige text */
@@ -232,7 +230,8 @@ main {
     overflow-x: hidden;
     padding-top: 20px;
     padding-bottom: 20px;
-}
+
+  }
   
   #filter-section {
     padding: 6px 8px 6px 16px;
@@ -250,21 +249,23 @@ main {
 
 
 
->>>>>>> 37f8ac5a1debd712e78decfe02980d2a142470a9
 /* Login Section */
 .login-section {
     display: flex;
     justify-content: center;
     align-items: center;
+    min-height: calc(100vh - 120px); /* Adjust based on your navbar/footer height */
     padding: 2em;
+    width: 100%;
 }
 
 .login-box {
-    background-color: #2B505C; /* Muted teal color */
+    background-color: #2B505C;
     padding: 2em;
     border-radius: 10px;
     text-align: center;
     width: 300px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.5); /* Optional: a little shadow for polish */
 }
 
 .login-box h1 {
@@ -399,88 +400,136 @@ footer {
 }
 
 /* Profile Page Styles */
+/* Profile Section */
 .profile-section {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: flex-start;
     width: 100%;
-    height: 100vh;
     padding: 2em;
-}
-.favorite-games {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1.5em;
-    justify-content: flex-start;
-    align-items: flex-start;
-    width: 75%;
-    height: 100%;
-    padding: 2em;
-}
-.favorite-games {
-    background-color: rgba(255, 255, 255, 0.1); /* Light opacity for visibility */
-    border: 1px solid red; /* Temporary border to see layout */
+    gap: 2em;
 }
 
-
-.profile-intro {
-    font-size: 1.1em;
-    margin-bottom: 1em;
-    color: #7E695C;
-}
-
-.profile-card {
-    background-color: #2B505C;
-    padding: 1.5em;
-    border-radius: 10px;
-    text-align: left;
+/* Sidebar Styling */
+.sidebar {
     width: 300px;
-    margin: 1em auto;
+    background-color: #2B505C;
+    padding: 2em;
+    border-radius: 10px;
+    text-align: center;
     color: #E6D6C1;
 }
 
-.profile-card h2 {
-    font-size: 1.2em;
-    margin-bottom: 0.5em;
+/* Main Profile Section */
+.main-profile {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 2em;
 }
 
-.profile-card p {
-    font-size: 0.9em;
-    margin: 0.3em 0;
+/* Username Section */
+.username-section {
+    display: flex;
+    align-items: center;
+    gap: 1em;
 }
 
-.profile-button {
+/* Follow Button */
+.follow-button {
     background-color: #1A303F;
     color: #E6D6C1;
     border: none;
-    padding: 0.7em;
-    margin: 0.5em 0;
+    padding: 0.6em 1.2em;
     border-radius: 5px;
     cursor: pointer;
-    width: 100%;
-    font-size: 0.9em;
+    font-size: 1em;
 }
-
-.profile-button:hover {
+.follow-button:hover {
     background-color: #607D7E;
 }
 
-/* Container for buttons at the bottom */
-.profile-actions {
-    width: 300px; /* Match the width of the profile card */
-    margin-top: auto; /* Push to the bottom */
-    padding: 1em 0;
-    text-align: left; /* Align buttons to the left */
+/* Library Section */
+.library-section {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2em;
+}
+
+/* Each Library Card */
+.library-card {
+    background-color: #2B505C;
+    border-radius: 10px;
+    padding: 1em;
+    width: 160px;
+    text-align: center;
+}
+
+/* Games inside Library */
+.library-games {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.5em;
+    margin-bottom: 1em;
+}
+
+/* Each Game Thumbnail */
+.game-thumb {
+    width: 70px;
+    height: 70px;
+    background-color: #607D7E;
+    border-radius: 8px;
+}
+
+/* Library Button */
+.library-button {
+    background-color: #1A303F;
+    color: #E6D6C1;
+    border: none;
+    padding: 0.5em 1em;
+    border-radius: 5px;
+    font-size: 0.9em;
+    cursor: pointer;
+}
+.library-button:hover {
+    background-color: #607D7E;
+}
+
+/* Latest Review Section */
+.latest-review {
+    background-color: #7E695C;
+    color: #0f1c24;
+    padding: 2em;
+    border-radius: 10px;
+}
+
+/* Stars */
+.stars {
+    color: gold;
+    font-size: 1.5em;
+    margin: 0.5em 0;
+}
+
+/* Review Text */
+.review-text {
+    background-color: #2B505C;
+    color: #E6D6C1;
+    padding: 1em;
+    border-radius: 8px;
+    margin-top: 1em;
 }
 
 /* Ratings Page Styles */
 .ratings-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 3em 2em;
     text-align: center;
     color: #E6D6C1;
-    padding: 2em;
-    max-width: 800px;
-    margin: 0 auto;
+    width: 100%;
 }
 
 .ratings-intro {
@@ -494,7 +543,9 @@ footer {
     flex-wrap: wrap;
     justify-content: center;
     gap: 2em;
-    padding-top: 1em;
+    width: 100%;
+    max-width: 800px; /* CONTROL width tightly */
+    margin: 0 auto;
 }
 
 .rating-card {
@@ -504,7 +555,16 @@ footer {
     text-align: left;
     width: 220px;
     color: #E6D6C1;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.3);
 }
 
 .rating-card h2 {
-    font-size: 1.2em
+    font-size: 1.2em;
+    margin-bottom: 0.5em;
+}
+
+.rating-card p {
+    font-size: 0.9em;
+    margin-bottom: 0.5em;
+    color: #7E695C;
+}
