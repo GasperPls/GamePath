@@ -1,103 +1,257 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Profile</title>
-    <link rel="stylesheet" href="indexstyle.css"> <!-- Ensure this file exists and is updated -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>User Profile</title>
+  <link rel="stylesheet" href="indexstyle.css">
+  <style>
+    /* Reset */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #0f1c24;
+      color: #e0d6c9;
+      min-height: 100vh;
+    }
+    /* Navbar */
+    .navbar {
+      background-color: #0a141a;
+      padding: 1em 2em;
+    }
+    .navbar ul {
+      display: flex;
+      list-style: none;
+      gap: 2em;
+      justify-content: flex-end;
+    }
+    .navbar a {
+      text-decoration: none;
+      color: #e0d6c9;
+      font-weight: bold;
+      font-size: 1.1em;
+    }
+    .navbar a:hover {
+      color: #7E695C;
+    }
+    /* Layout */
+    .profile-wrapper {
+      background-color: #2b505c;
+      margin: 2em auto;
+      padding: 2em;
+      width: 90%;
+      max-width: 1200px;
+      border-radius: 15px;
+      display: flex;
+      gap: 3em;
+    }
+    /* Left Side (Profile Info) */
+    .profile-info {
+      width: 300px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1em;
+    }
+    .profile-picture {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      background-color: #ccc;
+      background-size: cover;
+      background-position: center;
+    }
+    .username {
+      font-size: 1.8em;
+      font-weight: bold;
+      text-align: center;
+    }
+    .gaming-preferences {
+      background-color: #22313f;
+      padding: 1em;
+      border-radius: 10px;
+      width: 100%;
+      text-align: center;
+      margin-top: 1em;
+    }
+    .profile-buttons {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5em;
+      margin-top: 1em;
+      width: 100%;
+    }
+    .profile-button {
+      background-color: #7E695C;
+      color: white;
+      border: none;
+      padding: 0.7em;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: bold;
+      font-size: 1em;
+    }
+    .profile-button:hover {
+      background-color: #607D7E;
+    }
+    /* Right Side (Content Area) */
+    .profile-content {
+      flex: 1;
+    }
+    .library-section {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 2em;
+      margin-bottom: 2em;
+    }
+    .library-card {
+      background-color: #22313f;
+      padding: 1em;
+      border-radius: 10px;
+      width: 180px;
+      text-align: center;
+    }
+    .library-games {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0.5em;
+      margin-bottom: 0.8em;
+    }
+    .game-thumb {
+      width: 70px;
+      height: 70px;
+      background-color: #607D7E;
+      border-radius: 8px;
+    }
+    .library-button {
+      background-color: #1A303F;
+      color: #E6D6C1;
+      border: none;
+      padding: 0.5em 1em;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .library-button:hover {
+      background-color: #607D7E;
+    }
+    .latest-review {
+      background-color: #7E695C;
+      padding: 2em;
+      border-radius: 10px;
+      color: #0f1c24;
+      text-align: center;
+    }
+    .stars {
+      color: gold;
+      font-size: 1.5em;
+      margin: 0.5em 0;
+    }
+    .review-text {
+      background-color: #22313f;
+      color: #e0d6c9;
+      padding: 1em;
+      border-radius: 10px;
+      margin-top: 1em;
+    }
+  </style>
 
-    <script>
-        function loadProfile() {
-            const profilePicture = localStorage.getItem("profilePicture") || 'default-avatar.png';
-            const favoriteGenres = JSON.parse(localStorage.getItem("favoriteGenres")) || [];
-            const gamingPlatforms = JSON.parse(localStorage.getItem("gamingPlatforms")) || [];
+  <script>
+    function loadProfile() {
+      const profilePicture = localStorage.getItem("profilePicture") || 'default-avatar.png';
+      const favoriteGenres = JSON.parse(localStorage.getItem("favoriteGenres")) || [];
+      const gamingPlatforms = JSON.parse(localStorage.getItem("gamingPlatforms")) || [];
 
-            document.getElementById("profilePic").style.backgroundImage = `url(${profilePicture})`;
-            document.getElementById("favoriteGenres").textContent = favoriteGenres.length ? favoriteGenres.join(", ") : "Not set";
-            document.getElementById("gamingPlatforms").textContent = gamingPlatforms.length ? gamingPlatforms.join(", ") : "Not set";
+      document.getElementById("profilePic").style.backgroundImage = `url(${profilePicture})`;
+      document.getElementById("favoriteGenres").textContent = favoriteGenres.length ? favoriteGenres.join(", ") : "Not set";
+      document.getElementById("gamingPlatforms").textContent = gamingPlatforms.length ? gamingPlatforms.join(", ") : "Not set";
+    }
 
-            loadGames(favoriteGenres);
-        }
+    function toggleFollow() {
+      const followBtn = document.getElementById("followBtn");
+      followBtn.innerText = (followBtn.innerText === "Follow") ? "Unfollow" : "Follow";
+    }
 
-        function loadGames(genres) {
-            const gameList = document.getElementById("gameList");
-            gameList.innerHTML = "";
-
-            const sampleGames = [
-                { name: "Game A", genre: "Action", img: "game-a.png" },
-                { name: "Game B", genre: "RPG", img: "game-b.png" },
-                { name: "Game C", genre: "Strategy", img: "game-c.png" }
-            ];
-
-            let filteredGames = sampleGames.filter(game => genres.includes(game.genre));
-            if (filteredGames.length === 0) filteredGames = sampleGames;
-
-            filteredGames.forEach(game => {
-                const gameCard = document.createElement("div");
-                gameCard.classList.add("game-card");
-                gameCard.innerHTML = `<img src='${game.img}' alt='${game.name}'><p>${game.name}</p>`;
-                gameList.appendChild(gameCard);
-            });
-        }
-
-        document.addEventListener("DOMContentLoaded", loadProfile);
-    </script>
+    document.addEventListener("DOMContentLoaded", loadProfile);
+  </script>
 </head>
+
 <body>
-    <!-- Profile Section Wrapper (NEW FIX) -->
-    <div class="profile-section">
+  <nav class="navbar">
+    <ul>
+      <li><a href="home.html">Home</a></li>
+      <li><a href="library.html">Library</a></li>
+      <li><a href="ratings.html">Ratings</a></li>
+      <li><a href="profile.html">Profile</a></li>
+    </ul>
+  </nav>
 
-        <!-- Sidebar (User Profile) -->
-        <div class="sidebar">
-            <div id="profilePic" class="profile-picture"></div>
-            <div class="profile-card">
-                <h2>User Profile</h2>
-                <p><strong>Favorite Genres:</strong> <span id="favoriteGenres">Loading...</span></p>
-                <p><strong>Preferred Platforms:</strong> <span id="gamingPlatforms">Loading...</span></p>
-            </div>
-            <div class="button-container">
-                <button class="profile-button" onclick="window.location.href='profile-setup.html'">Edit Profile</button>
-                <button class="profile-button" onclick="window.location.href='logout.html'">Log Out</button>
-            </div>
-        </div>
+  <div class="profile-wrapper">
 
-        <!-- Favorite Games Section -->
-        <div class="favorite-games">
-            <h1>Favorite Games</h1>
-            <div class="game-section">
-                <div class="games-container" id="gameList">
-                    <p>Loading recommended games...</p>
-                </div>
-            </div>
-        </div>
+    <!-- Left Profile Info -->
+    <div class="profile-info">
+      <div id="profilePic" class="profile-picture"></div>
+      <div class="username">[username]</div>
+      <div class="gaming-preferences">
+        <h3>Gaming Preferences</h3>
+        <p><strong>Favorite Genres:</strong> <span id="favoriteGenres">Loading...</span></p>
+        <p><strong>Preferred Platforms:</strong> <span id="gamingPlatforms">Loading...</span></p>
+      </div>
+      <div class="profile-buttons">
+        <button class="profile-button" onclick="window.location.href='profile-setup.html'">Settings</button>
+        <button class="profile-button" onclick="alert('Edit Profile clicked')">Edit Profile</button>
+        <button id="followBtn" class="profile-button" onclick="toggleFollow()">Follow</button>
+      </div>
     </div>
 
-    <!-- Game Footage Section -->
-    <div class="game-footage-section">
-        <h2>Game Footage</h2>
-        <div class="game-footage-container">
-            <div class="game-footage-box">
-                <video controls>
-                    <source src="https://www.sample-videos.com/video123/mp4/720/big_buck_bunny_720p_1mb.mp4" type="video/mp4">
-                    Your browser does not support the video tag or the file is missing.
-                </video>
-                <p>Game A Footage</p>
-            </div>
-            <div class="game-footage-box">
-                <video controls>
-                    <source src="https://www.sample-videos.com/video123/mp4/720/big_buck_bunny_720p_1mb.mp4" type="video/mp4">
-                    Your browser does not support the video tag or the file is missing.
-                </video>
-                <p>Game B Footage</p>
-            </div>
-            <div class="game-footage-box">
-                <video controls>
-                    <source src="https://www.sample-videos.com/video123/mp4/720/big_buck_bunny_720p_1mb.mp4" type="video/mp4">
-                    Your browser does not support the video tag or the file is missing.
-                </video>
-                <p>Game C Footage</p>
-            </div>
+    <!-- Right Main Content -->
+    <div class="profile-content">
+      <div class="library-section">
+        <div class="library-card">
+          <div class="library-games">
+            <div class="game-thumb"></div>
+            <div class="game-thumb"></div>
+            <div class="game-thumb"></div>
+            <div class="game-thumb"></div>
+          </div>
+          <button class="library-button">Library Name</button>
         </div>
+
+        <div class="library-card">
+          <div class="library-games">
+            <div class="game-thumb"></div>
+            <div class="game-thumb"></div>
+            <div class="game-thumb"></div>
+            <div class="game-thumb"></div>
+          </div>
+          <button class="library-button">Library Name</button>
+        </div>
+
+        <div class="library-card">
+          <div class="library-games">
+            <div class="game-thumb"></div>
+            <div class="game-thumb"></div>
+            <div class="game-thumb"></div>
+            <div class="game-thumb"></div>
+          </div>
+          <button class="library-button">Library Name</button>
+        </div>
+      </div>
+
+      <div class="latest-review">
+        <p><strong>Latest Rating:</strong> [Game Title]</p>
+        <div class="stars">★★★★☆</div>
+        <p><strong>Latest Review:</strong> [Game Title]</p>
+        <div class="review-text">
+          <p>Something is said in here... at most 2k characters then \"...\"</p>
+        </div>
+      </div>
     </div>
+
+  </div>
 </body>
 </html>
