@@ -41,6 +41,26 @@ app.post('/api/games', express.json(), async (req, res) => {
     res.status(500).json({ error: 'Failed to fetch games' });
   }
 });
+// Proxy endpoint for IGDB API Collection
+/*app.post('/api/collections', express.json(), async (req, res) => {
+  try {
+    const response = await fetch('https://api.igdb.com/v4/collections', {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Authorization': `Bearer ${apiKey}`,
+        'Client-ID': clientId
+      },
+      body: req.body.query
+    });
+
+    const data = await response.json();
+    res.json(data);
+  } catch (error) {
+    console.error('Error fetching collections:', error);
+    res.status(500).json({ error: 'Failed to fetch collections' });
+  }
+});*/
 
 // Start the server
 app.listen(port, () => {

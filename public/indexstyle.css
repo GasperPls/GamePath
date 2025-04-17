@@ -136,7 +136,7 @@ main {
     padding: 2em;
     border-radius: 10px;
     text-align: center;
-    width: 500px;
+    width: auto;
 }
 
 .sidenav {
@@ -430,3 +430,21 @@ footer {
     padding: 0.5em;
     border-radius: 5px;
 }
+
+#game-results {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr); /* 5 items per row */
+    gap: 20px;                             /* space between items */
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  #game-results li {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    cursor: pointer;
+  }
+  
