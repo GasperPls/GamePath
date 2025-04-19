@@ -1,87 +1,243 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ratings - GamePath</title>
-    <link rel="stylesheet" href="indexstyle.css"> <!-- Link to the existing CSS file -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Game Review - GamePath</title>
+  <link rel="stylesheet" href="indexstyle.css">
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: #0f1c2e;
+      color: #fff;
+    }
+    header nav ul {
+      list-style: none;
+      display: flex;
+      gap: 20px;
+      background-color: #0d1624;
+      padding: 20px;
+      justify-content: flex-end;
+    }
+    nav ul li a {
+      color: #fff;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    .main-section {
+      display: flex;
+      padding: 40px;
+      gap: 40px;
+    }
+    .left-column {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+    }
+    .left-column img {
+      width: 440px;
+      height: 600px;
+      object-fit: cover;
+      border-radius: 10px;
+      background-color: #333;
+      box-shadow: 0 0 10px rgba(0,0,0,0.5);
+    }
+    .avg-stars {
+      font-size: 26px;
+    }
+    .right-column {
+      background-color: #6f5749;
+      flex: 1;
+      padding: 30px;
+      border-radius: 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+    }
+    .game-info h1 {
+      font-size: 36px;
+      margin: 0;
+      text-align: center;
+    }
+    .description {
+      max-width: 100%;
+    }
+    .details-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 15px;
+      background-color: #2c4d59;
+      padding: 20px;
+      border-radius: 10px;
+    }
+    .details-grid strong {
+      display: block;
+      color: #c9b37e;
+    }
+    .scrollable-container {
+      height: 300px;
+      overflow-y: auto;
+    }
+    .review-card {
+      display: flex;
+      align-items: center;
+      background-color: #1e4b58;
+      padding: 20px;
+      border-radius: 10px;
+      margin-bottom: 15px;
+      color: #fff;
+      gap: 20px;
+    }
+    .user-img {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      background-color: #666;
+      object-fit: cover;
+    }
+    .user-info {
+      flex: 1;
+    }
+    .user-info strong {
+      font-size: 18px;
+      display: block;
+      margin-bottom: 6px;
+    }
+    .review-text {
+      font-size: 15px;
+      margin: 8px 0;
+    }
+    .user-stars {
+      font-size: 22px;
+      color: gold;
+    }
+    .arrow-controls {
+      align-self: center;
+      display: flex;
+      gap: 10px;
+    }
+    .arrow-controls button {
+      padding: 5px 15px;
+      font-size: 18px;
+      background-color: #1f2b38;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+  </style>
 </head>
 <body>
 
-    <!-- Navigation Bar -->
-    <header>
-        <nav>
-            <ul>
-                <li><a href="index.html">Home</a></li>
-                <li><a href="library.html">Library</a></li>
-                <li><a href="ratings.html">Ratings</a></li>
-                <li><a href="profile.html">Profile</a></li>
-            </ul>
-        </nav>
-    </header>
+<header>
+  <nav>
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="library.html">Library</a></li>
+      <li><a href="ratings.html">Ratings</a></li>
+      <li><a href="profile.html">Profile</a></li>
+    </ul>
+  </nav>
+</header>
 
-    <!-- Main Content -->
-    <main>
-        <section class="ratings-section">
-            <h1>Game Ratings</h1>
-            <p class="ratings-intro">Check out the ratings and reviews for each game in your library. Rate your favorites and see how they compare!</p>
-            <div class="ratings-grid">
-                <div class="rating-card">
-                    <h2>Game Title 1</h2>
-                    <p>Rating: ★★★★☆ (4/5)</p>
-                    <div class="review">
-                        <h3>User Reviews:</h3>
-                        <p>"A fantastic game with great graphics and gameplay!"</p>
-                    </div>
-                </div>
-                <div class="rating-card">
-                    <h2>Game Title 2</h2>
-                    <p>Rating: ★★★☆☆ (3/5)</p>
-                    <div class="review">
-                        <h3>User Reviews:</h3>
-                        <p>"Fun for a while, but it gets repetitive."</p>
-                    </div>
-                </div>
-                <div class="rating-card">
-                    <h2>Game Title 3</h2>
-                    <p>Rating: ★★★★★ (5/5)</p>
-                    <div class="review">
-                        <h3>User Reviews:</h3>
-                        <p>"Absolutely loved every moment of it! Highly recommended."</p>
-                    </div>
-                </div>
-                <div class="rating-card">
-                    <h2>Game Title 4</h2>
-                    <p>Rating: ★★★★☆ (4/5)</p>
-                    <div class="review">
-                        <h3>User Reviews:</h3>
-                        <p>"Great mechanics, but the story could be better."</p>
-                    </div>
-                </div>
-                <div class="rating-card">
-                    <h2>Game Title 5</h2>
-                    <p>Rating: ★★☆☆☆ (2/5)</p>
-                    <div class="review">
-                        <h3>User Reviews:</h3>
-                        <p>"Not what I expected. Needs more work."</p>
-                    </div>
-                </div>
-                <div class="rating-card">
-                    <h2>Game Title 6</h2>
-                    <p>Rating: ★★★★☆ (4/5)</p>
-                    <div class="review">
-                        <h3>User Reviews:</h3>
-                        <p>"Solid game with lots of replay value."</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-    </main>
+<div class="main-section">
+  <div class="left-column">
+    <img id="game-cover" src="/images/placeholder.png" alt="Game Cover">
+    <div class="avg-stars">★★★★☆</div>
+  </div>
+  <div class="right-column">
+    <div class="game-info">
+      <h1 id="game-title">[GameName]</h1>
+      <p class="description" id="game-summary">
+        The party is back and bigger than ever in the Mario Party 9 game for Wii, featuring all-new ways to play! For the first time in the franchise... <span style="color:#c9b37e; cursor:pointer;">Read More</span>
+      </p>
+      <div class="details-grid">
+        <div><strong>Publisher:</strong> Nintendo</div>
+        <div><strong>Game Modes:</strong> Single Player, Multiplayer, Co-op</div>
+        <div><strong>Series:</strong> Mario Party</div>
+        <div><strong>Released:</strong> 03/01/2012</div>
+        <div><strong>Genre:</strong> Puzzle, Adventure, Card & Board Game</div>
+        <div><strong>Console:</strong> Nintendo Wii</div>
+      </div>
+    </div>
 
-    <!-- Footer -->
-    <footer>
-        <p>© 2024 GamePath. All rights reserved.</p>
-    </footer>
+    <div class="scrollable-container">
+      <div class="review-card">
+        <img class="user-img" src="/images/profile.png" alt="User">
+        <div class="user-info">
+          <strong>StarChaser92</strong>
+          <p class="review-text">Absolutely loved playing this with friends. The mini-games are hilarious, and the graphics are way better than I expected for the Wii!</p>
+          <div class="user-stars">★★★★★</div>
+        </div>
+      </div>
+      <div class="review-card">
+        <img class="user-img" src="/images/profile.png" alt="User">
+        <div class="user-info">
+          <strong>RetroKid</strong>
+          <p class="review-text">Solid entry in the Mario Party series. Some changes to the gameplay weren’t my favorite, but it's still a blast at parties.</p>
+          <div class="user-stars">★★★☆☆</div>
+        </div>
+      </div>
+      <div class="review-card">
+        <img class="user-img" src="/images/profile.png" alt="User">
+        <div class="user-info">
+          <strong>LunaByte</strong>
+          <p class="review-text">It’s chaotic fun. Easy to pick up, even my little cousins had no trouble joining in and having a great time!</p>
+          <div class="user-stars">★★★★☆</div>
+        </div>
+      </div>
+      <div class="review-card">
+        <img class="user-img" src="/images/profile.png" alt="User">
+        <div class="user-info">
+          <strong>8BitSam</strong>
+          <p class="review-text">Not my favorite Mario Party game, but definitely has some redeeming qualities. Board design felt a bit restrictive though.</p>
+          <div class="user-stars">★★★☆☆</div>
+        </div>
+      </div>
+      <div class="review-card">
+        <img class="user-img" src="/images/profile.png" alt="User">
+        <div class="user-info">
+          <strong>JoyConArtist</strong>
+          <p class="review-text">This one brings back a lot of childhood memories. Fun, competitive, and just pure Nintendo joy.</p>
+          <div class="user-stars">★★★★★</div>
+        </div>
+      </div>
+    </div>
 
+    <div class="arrow-controls">
+      <button id="prevPage">←</button>
+      <button id="nextPage">→</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  async function fetchGameData() {
+    const gameId = 12345; // Replace with actual dynamic ID
+
+    try {
+      const response = await fetch(`/api/games/${gameId}`);
+      const data = await response.json();
+
+      if (data.name) {
+        document.getElementById('game-title').textContent = data.name;
+      }
+
+      if (data.summary) {
+        document.getElementById('game-summary').innerHTML = `${data.summary.slice(0, 400)}... <span style="color:#c9b37e; cursor:pointer;">Read More</span>`;
+      }
+
+      if (data.coverUrl) {
+        document.getElementById('game-cover').src = data.coverUrl;
+      }
+    } catch (err) {
+      console.error('Failed to load game data:', err);
+    }
+  }
+
+  window.onload = fetchGameData;
+</script>
 </body>
 </html>
