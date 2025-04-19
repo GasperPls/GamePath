@@ -131,16 +131,18 @@
 </head>
 <body>
 
-<header>
-  <nav>
-    <ul>
-      <li><a href="index.html">Home</a></li>
-      <li><a href="library.html">Library</a></li>
-      <li><a href="ratings.html">Ratings</a></li>
-      <li><a href="profile.html">Profile</a></li>
-    </ul>
-  </nav>
-</header>
+    <!-- Navigation Bar -->
+    <header>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="library.html">Library</a></li>
+                <li><a href="ratings.html">Ratings</a></li>
+                <li><a href="profile.html">Profile</a></li>
+                <li><a id="logout" href="#">Logout</a></li>
+            </ul>
+        </nav>
+    </header>
 
 <div class="main-section">
   <div class="left-column">
@@ -215,7 +217,7 @@
 
 <script>
   async function fetchGameData() {
-    const gameId = 12345; // Replace with actual dynamic ID
+    const gameId = 12345; // Replace with agit pull origin mainctual dynamic ID
 
     try {
       const response = await fetch(`/api/games/${gameId}`);
@@ -239,5 +241,7 @@
 
   window.onload = fetchGameData;
 </script>
+    <script type="module" src="auth.js"></script>
+
 </body>
 </html>

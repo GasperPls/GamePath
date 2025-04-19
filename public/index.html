@@ -5,37 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>GamePath</title>
   <link rel="stylesheet" href="indexstyle.css" />
-  <link rel="stylesheet" href="register.css" />
-  <script>
-    function validatePassword() {
-      const password = document.getElementById("regPassword").value;
-      const confirmPassword = document.getElementById("confirmPassword").value;
-      const errorElement = document.getElementById("registerError");
-      const passwordPattern = /^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]).{8,}$/;
-      
-      if (!passwordPattern.test(password)) {
-        errorElement.textContent = "Password must be at least 8 characters long, contain 1 uppercase letter, 1 number, and 1 special character.";
-        return false;
-      }
-      
-      if (password !== confirmPassword) {
-        errorElement.textContent = "Passwords do not match.";
-        return false;
-      }
-      
-      errorElement.textContent = "";
-      return true;
-    }
-    
-    document.addEventListener("DOMContentLoaded", function() {
-      document.getElementById("registerForm").addEventListener("submit", function(event) {
-        event.preventDefault();
-        if (validatePassword()) {
-          window.location.href = "profile-setup.html"; // Redirect after successful registration
-        }
-      });
-    });
-  </script>
+  <!--<link rel="stylesheet" href="register.css" />-->
+  <script type="module" src="auth.js"></script>
 </head>
 <body>
   <header>

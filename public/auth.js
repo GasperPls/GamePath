@@ -2,8 +2,7 @@
 
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-app.js";
-import { getAuth, createUserWithEmailAndPassword, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-auth.js";
-
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-auth.js";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -25,32 +24,23 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 
 // Registration Form
-const register = document.querySelector('#regForm');
+const register = document.querySelector('#registerForm');
 if(register) {
   register.addEventListener('submit', (e) => {
     e.preventDefault();
 
-    const email = regForm['regEmail'].value;
-    const password = regForm['regPassword'].value;
+    const email = registerForm['regEmail'].value;
+    const password = registerForm['regPassword'].value;
     //const repass = regForm['regRepassword'].value;
    
     createUserWithEmailAndPassword(auth, email, password).then(cred => {
-        regForm.reset();
-        location.href = "/test.html"
+        registerForm.reset();
+        location.href = "profile-setup.html"
     });}
 )};
 
-// Status tracker of user
-onAuthStateChanged(auth, (user) => {
-    if (user) {
-      console.log("user logged in: ", user);
-    } else {
-      console.log("user logged out");
-    }
-  });
-
-  // Login Form
-const loginForm = document.querySelector('#myForm');
+// Login Form
+const loginForm = document.querySelector('#loginForm');
 if(loginForm) {
   // Add an event listener for when the login form has been submitted
   loginForm.addEventListener('submit', (e) => {
@@ -65,7 +55,7 @@ if(loginForm) {
     signInWithEmailAndPassword(auth, email, password).then(cred => {
       //Reset Form and then send the user to Home
       loginForm.reset();
-      location.href = "/test.html";
+      location.href = "library.html";
     })
     .catch((error) => {
       loginForm.reset();
@@ -74,14 +64,24 @@ if(loginForm) {
   });
 }
 
+// Status tracker of user
+onAuthStateChanged(auth, (user) => {
+    if (user) {
+      console.log("user logged in: ", user);
+    } else {
+      console.log("user logged out");
+    }
+});
+
 // Logging out
 const logout = document.querySelector("#logout");
 if(logout) {
   logout.addEventListener('click', (e) => {
+    console.log("I reach here :D");
     e.preventDefault();
  
     auth.signOut().then(() => {
-      location.href = "/index.html";
+      location.href = "index.html";
     });
   });
 }
