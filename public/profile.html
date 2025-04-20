@@ -4,162 +4,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>User Profile</title>
-  <link rel="stylesheet" href="indexstyle.css">
-  <style>
-    /* Reset */
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-    body {
-      font-family: Arial, sans-serif;
-      background-color: #0f1c24;
-      color: #e0d6c9;
-      min-height: 100vh;
-    }
-    /* Navbar */
-    .navbar {
-      background-color: #0a141a;
-      padding: 1em 2em;
-    }
-    .navbar ul {
-      display: flex;
-      list-style: none;
-      gap: 2em;
-      justify-content: flex-end;
-    }
-    .navbar a {
-      text-decoration: none;
-      color: #e0d6c9;
-      font-weight: bold;
-      font-size: 1.1em;
-    }
-    .navbar a:hover {
-      color: #7E695C;
-    }
-    /* Layout */
-    .profile-wrapper {
-      background-color: #2b505c;
-      margin: 2em auto;
-      padding: 2em;
-      width: 90%;
-      max-width: 1200px;
-      border-radius: 15px;
-      display: flex;
-      gap: 3em;
-    }
-    /* Left Side (Profile Info) */
-    .profile-info {
-      width: 300px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 1em;
-    }
-    .profile-picture {
-      width: 120px;
-      height: 120px;
-      border-radius: 50%;
-      background-color: #ccc;
-      background-size: cover;
-      background-position: center;
-    }
-    .username {
-      font-size: 1.8em;
-      font-weight: bold;
-      text-align: center;
-    }
-    .gaming-preferences {
-      background-color: #22313f;
-      padding: 1em;
-      border-radius: 10px;
-      width: 100%;
-      text-align: center;
-      margin-top: 1em;
-    }
-    .profile-buttons {
-      display: flex;
-      flex-direction: column;
-      gap: 0.5em;
-      margin-top: 1em;
-      width: 100%;
-    }
-    .profile-button {
-      background-color: #7E695C;
-      color: white;
-      border: none;
-      padding: 0.7em;
-      border-radius: 5px;
-      cursor: pointer;
-      font-weight: bold;
-      font-size: 1em;
-    }
-    .profile-button:hover {
-      background-color: #607D7E;
-    }
-    /* Right Side (Content Area) */
-    .profile-content {
-      flex: 1;
-    }
-    .library-section {
-      display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
-      gap: 2em;
-      margin-bottom: 2em;
-    }
-    .library-card {
-      background-color: #22313f;
-      padding: 1em;
-      border-radius: 10px;
-      width: 180px;
-      text-align: center;
-    }
-    .library-games {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 0.5em;
-      margin-bottom: 0.8em;
-    }
-    .game-thumb {
-      width: 70px;
-      height: 70px;
-      background-color: #607D7E;
-      border-radius: 8px;
-    }
-    .library-button {
-      background-color: #1A303F;
-      color: #E6D6C1;
-      border: none;
-      padding: 0.5em 1em;
-      border-radius: 5px;
-      cursor: pointer;
-    }
-    .library-button:hover {
-      background-color: #607D7E;
-    }
-    .latest-review {
-      background-color: #7E695C;
-      padding: 2em;
-      border-radius: 10px;
-      color: #0f1c24;
-      text-align: center;
-    }
-    .stars {
-      color: gold;
-      font-size: 1.5em;
-      margin: 0.5em 0;
-    }
-    .review-text {
-      background-color: #22313f;
-      color: #e0d6c9;
-      padding: 1em;
-      border-radius: 10px;
-      margin-top: 1em;
-    }
-  </style>
-
+  <link rel="stylesheet" href="global.css">
+  <link rel="stylesheet" href="/public/css/profile.css">
+  
   <script>
     function loadProfile() {
       const profilePicture = localStorage.getItem("profilePicture") || 'default-avatar.png';
@@ -184,9 +31,10 @@
   <nav class="navbar">
     <ul>
       <li><a href="index.html">Home</a></li>
-      <li><a href="library.html">Library</a></li>
+      <li><a href="search.html">Search</a></li>
       <li><a href="ratings.html">Ratings</a></li>
       <li><a href="profile.html">Profile</a></li>
+      <li><a href="user-library.html">Library</a></li>
       <li><a id="logout" href="#">Logout</a></li>
     </ul>
   </nav>
