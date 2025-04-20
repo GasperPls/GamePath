@@ -27,8 +27,7 @@
             <!-- Sidebar Filters -->
             <aside class="sidebar-filters">
                 <div class="filter-container">
-                    <h3 class="filter-title">  Company <span class="arrow">▼</span>
-                    </h3>
+                    <h3 class="filter-title">  Company <span class="arrow">▼</span></h3>
                     <div class="filter-options">
                         <label><input type="checkbox" name="company" value="nintendo"> Nintendo</label>
                         <label><input type="checkbox" name="company" value="sony"> Sony</label>
@@ -37,8 +36,7 @@
                     </div>
                 </div>
                 <div class="filter-container">
-                    <h3 class="filter-title">Multiplayer <span class="arrow">▼</span>
-                    </h3>
+                    <h3 class="filter-title">Multiplayer <span class="arrow">▼</span></h3>
                     <div class="filter-options">
                         <label><input type="checkbox" name="mode" value="solo"> Solo</label>
                         <label><input type="checkbox" name="mode" value="co-op"> Co-Op</label>
@@ -72,21 +70,22 @@
                     </div>
                 </div>
             </aside>
-
             <!-- Search Content -->
-            <div class="search-content">
-                <h1>Game Search</h1>
-                <div class="search-input-group">
-                    <label for="gameSearch">Search Videogames</label>
-                    <input type="search" id="gameSearch" name="search" placeholder="Videogame...">
-                    <button type="submit" class="search-btn">Search</button>
-                </div>
+        <div class="search-content">
+            <h1 style="padding: 10px;">Game Search</h1>
+            <div class="search-input-group">
+                <label for="gameSearch">Search Videogames</label>
+                <input type="search" id="gameSearch" name="search" placeholder="Videogame...">
+                <button type="submit" id="search-btn">Search</button>
                 
-                <!-- Search results would go here -->
-                <div class="search-results">
+                <div id="game-results">
                     <!-- Game results will be displayed here -->
                 </div>
+                <div id="pages"></div>
             </div>
+            
+            <!-- Search results would go here -->
+            
         </form>
     </main>
 
@@ -95,8 +94,7 @@
         <p>© 2025 GamePath. All rights reserved.</p>
     </footer>
 
-    <script type="module" src="auth.js"></script>
-
+    <script src="api.js"></script>
     <script>
         document.querySelectorAll('.filter-title').forEach(title => {
             title.addEventListener('click', () => {
@@ -105,6 +103,8 @@
             });
         });
     </script>
-
+  
+  </body>
+  </html>
 </body>
 </html>
