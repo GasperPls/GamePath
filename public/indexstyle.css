@@ -69,9 +69,91 @@ main {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 2em;
+    /*padding: 2em;*/
 }
 
+.search-form {
+    display: flex;
+    width: 100%;
+}
+
+.sidebar-filters {
+    width: 250px;
+    background-color: #2B505C;
+    padding: 20px;
+    position: sticky;
+    top: 60px;
+    align-self: flex-start;
+    height: calc(100vh - 60px);
+    overflow-y: auto;
+}
+
+.filter-container {
+    margin-bottom: 25px;
+    border-bottom: 1px solid #3a365a;
+    padding-bottom: 15px;
+}
+
+.filter-container.collapsed .filter-options {
+    max-height: 0;
+    padding: 0;
+}
+
+.filter-container:last-child {
+    border-bottom: none;
+}
+
+.filter-title {
+    color: #7E695C;
+    margin-top: 0;
+    margin-bottom: 10px;
+    font-size: 1.1em;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+}
+
+.arrow {
+    transition: transform 0.3s ease;
+    font-size: 0.9em;
+}
+
+.filter-container.collapsed .arrow {
+    transform: rotate(-90deg);
+}
+
+.filter-options {
+    max-height: 1000px;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+}
+
+.filter-options label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    padding: 5px;
+    border-radius: 4px;
+    transition: all 0.2s;
+}
+
+.filter-options label:hover {
+    background-color: #3a365a;
+}
+
+.search-content {
+    flex: 1;
+    padding: 20px;
+    max-width: 1200px;
+    text-align: center;
+}
+
+.search-input-group {
+    background-color: #2B505C;
+    padding: 2em;
+}
 
 /* Library Section */
 .library-section {
@@ -129,6 +211,17 @@ main {
     margin: 1em 0;
     border-radius: 5px;
     cursor: pointer;
+}
+
+#search-btn {
+    padding: 5px 15px;
+    background-color: #1f2b38;
+    color: white;
+    border: none;
+    border-radius:  4px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s;
 }
 
 #searchContentBox {
@@ -446,5 +539,8 @@ footer {
     align-items: center;
     text-align: center;
     cursor: pointer;
+    padding-top: 2em;
   }
+
+  
   

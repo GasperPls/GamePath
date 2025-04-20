@@ -16,35 +16,77 @@
                 <li><a href="library.html">Library</a></li>
                 <li><a href="ratings.html">Ratings</a></li>
                 <li><a href="profile.html">Profile</a></li>
+                <li><a id="logout" href="#">Logout</a></li>
             </ul>
         </nav>
     </header>
 
     <!-- Main Content -->
     <main>
-        <div id="searchContentBox">
-            <h1>Game Library</h1>
-            <form class="searchContent">
-                <label for="gameSearch">Search for Video Games </label><br><br>
-                <input type="search" id="inputGameSearch" placeholder="Search a Game..."> 
-                <div class="sidenav">
-                    <div id="filter-section">
-                        <ul class="filter-company" onclick="toggleView()"> Company<br>
-                            <div id="checkbox-group">
-                                <label><input type="checkbox" value="1270"> Nintendo</label><br>
-                                <label><input type="checkbox" value="1320"> Sony</label><br>
-                                <label><input type="checkbox" value="109"> Microsoft</label><br>
-                                <label><input type="checkbox" value="1352"> Steam</label><br>
-                            </div>
-                        </ul>
+        <form class="search-form">
+            <!-- Sidebar Filters -->
+            <aside class="sidebar-filters">
+                <div class="filter-container">
+                    <h3 class="filter-title">  Company <span class="arrow">▼</span></h3>
+                    <div class="filter-options">
+                        <label><input type="checkbox" name="company" value="nintendo"> Nintendo</label>
+                        <label><input type="checkbox" name="company" value="sony"> Sony</label>
+                        <label><input type="checkbox" name="company" value="microsoft"> Microsoft</label>
+                        <label><input type="checkbox" name="company" value="steam"> Steam</label>
                     </div>
                 </div>
-                <button id="searchBtn">Search</button>
-            </form>
-            <div id="game-results">
-              <!-- Search results will be displayed here-->
+                <div class="filter-container">
+                    <h3 class="filter-title">Multiplayer <span class="arrow">▼</span></h3>
+                    <div class="filter-options">
+                        <label><input type="checkbox" name="mode" value="solo"> Solo</label>
+                        <label><input type="checkbox" name="mode" value="co-op"> Co-Op</label>
+                        <label><input type="checkbox" name="mode" value="multiplayer"> Multiplayer</label>
+                        <label><input type="checkbox" name="mode" value="party"> Party</label>
+                    </div>
+                </div>
+                <div class="filter-container">
+                    <h3 class="filter-title">ESRB Rating <span class="arrow">▼</span></h3>
+                    <div class="filter-options">
+                        <label><input type="checkbox" name="esrb" value="everyone"> Everyone</label>
+                        <label><input type="checkbox" name="esrb" value="everyone10"> Everyone 10+</label>
+                        <label><input type="checkbox" name="esrb" value="teen"> Teen</label>
+                        <label><input type="checkbox" name="esrb" value="mature"> Mature 17+</label>
+                        <label><input type="checkbox" name="esrb" value="adult"> Adult 18+</label>
+                    </div>
+                </div>
+                <div class="filter-container">
+                    <h3 class="filter-title">Genre <span class="arrow">▼</span></h3>
+                    <div class="filter-options">
+                        <label><input type="checkbox" name="genre" value="action"> Action</label>
+                        <label><input type="checkbox" name="genre" value="adventure"> Adventure</label>
+                        <label><input type="checkbox" name="genre" value="platformer"> Platformer</label>
+                        <label><input type="checkbox" name="genre" value="shooter"> Shooter</label>
+                        <label><input type="checkbox" name="genre" value="fighting"> Fighting</label>
+                        <label><input type="checkbox" name="genre" value="sport"> Sports</label>
+                        <label><input type="checkbox" name="genre" value="puzzle"> Puzzle</label>
+                        <label><input type="checkbox" name="genre" value="horror"> Horror</label>
+                        <label><input type="checkbox" name="genre" value="farming"> Farming</label>
+                        <label><input type="checkbox" name="genre" value="racing"> Racing</label>
+                    </div>
+                </div>
+            </aside>
+            <!-- Search Content -->
+        <div class="search-content">
+            <h1 style="padding: 10px;">Game Search</h1>
+            <div class="search-input-group">
+                <label for="gameSearch">Search Videogames</label>
+                <input type="search" id="gameSearch" name="search" placeholder="Videogame...">
+                <button type="submit" id="search-btn">Search</button>
+                
+                <div id="game-results">
+                    <!-- Game results will be displayed here -->
+                </div>
+                <div id="pages"></div>
             </div>
-        </div>
+            
+            <!-- Search results would go here -->
+            
+        </form>
     </main>
 
     <!-- Footer -->
@@ -53,6 +95,14 @@
     </footer>
 
     <script src="api.js"></script>
+    <script>
+        document.querySelectorAll('.filter-title').forEach(title => {
+            title.addEventListener('click', () => {
+                const container = title.parentElement;
+                container.classList.toggle('collapsed');
+            });
+        });
+    </script>
   
   </body>
   </html>
