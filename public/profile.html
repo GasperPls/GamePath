@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Profile - GamePath</title>
     <link rel="stylesheet" href="indexstyle.css"> <!-- Link to the existing CSS file -->
+    <link rel="stylesheet" href="library.css">
 </head>
 <body>
 
@@ -41,6 +42,17 @@
                 <p><strong>Platform:</strong> <span id="platform">Loading...</span></p>
             </div>
 
+            <!-- Game Libraries -->
+            <div class="profile-card">
+                <h2>My Game Libraries</h2>
+                <div class="library-actions">
+                    <button class="profile-button" onclick="showCreateLibraryModal()">Create New Library</button>
+                </div>
+                <div id="libraries-container" class="libraries-grid">
+                    <!-- Libraries will be dynamically inserted here -->
+                </div>
+            </div>
+
             <!-- Account Settings -->
             <div class="profile-card">
                 <h2>Account Settings</h2>
@@ -49,10 +61,30 @@
                 <button class="profile-button">Delete Account</button>
             </div>
         </section>
+
+        <!-- Create Library Modal -->
+        <div id="create-library-modal" class="modal">
+            <div class="modal-content">
+                <span class="close-button" onclick="closeCreateLibraryModal()">&times;</span>
+                <h2>Create New Library</h2>
+                <form id="create-library-form">
+                    <div class="form-group">
+                        <label for="library-name">Library Name</label>
+                        <input type="text" id="library-name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="library-labels">Labels (comma separated)</label>
+                        <input type="text" id="library-labels" placeholder="e.g., RPG, PlayStation, Action">
+                    </div>
+                    <button type="submit" class="profile-button">Create Library</button>
+                </form>
+            </div>
+        </div>
     </main>
 
-    <!-- Firebase Script -->
+    <!-- Scripts -->
     <script type="module" src="profile.js"></script>
+    <script type="module" src="library.js"></script>
 
     <!-- Footer -->
     <footer>
