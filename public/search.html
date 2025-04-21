@@ -1,12 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Library - GamePath</title>
-    <link rel="stylesheet" href="/public/css/search.css">
-    <link rel="stylesheet" href="global.css">
-
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Search - GamePath</title>
+    <link rel="stylesheet" href="css/search.css" />
+    <link rel="stylesheet" href="global.css" />
 </head>
 <body>
 
@@ -30,7 +29,7 @@
             <!-- Sidebar Filters -->
             <aside class="sidebar-filters">
                 <div class="filter-container">
-                    <h3 class="filter-title">  Company <span class="arrow">▼</span></h3>
+                    <h3 class="filter-title">Company <span class="arrow">▼</span></h3>
                     <div class="filter-options">
                         <label><input type="checkbox" name="company" value="nintendo"> Nintendo</label>
                         <label><input type="checkbox" name="company" value="sony"> Sony</label>
@@ -38,6 +37,7 @@
                         <label><input type="checkbox" name="company" value="steam"> Steam</label>
                     </div>
                 </div>
+
                 <div class="filter-container">
                     <h3 class="filter-title">Multiplayer <span class="arrow">▼</span></h3>
                     <div class="filter-options">
@@ -47,6 +47,7 @@
                         <label><input type="checkbox" name="mode" value="party"> Party</label>
                     </div>
                 </div>
+
                 <div class="filter-container">
                     <h3 class="filter-title">ESRB Rating <span class="arrow">▼</span></h3>
                     <div class="filter-options">
@@ -57,6 +58,7 @@
                         <label><input type="checkbox" name="esrb" value="adult"> Adult 18+</label>
                     </div>
                 </div>
+
                 <div class="filter-container">
                     <h3 class="filter-title">Genre <span class="arrow">▼</span></h3>
                     <div class="filter-options">
@@ -73,22 +75,24 @@
                     </div>
                 </div>
             </aside>
+
             <!-- Search Content -->
-        <div class="search-content">
-            <h1 style="padding: 10px;">Game Search</h1>
-            <div class="search-input-group">
-                <label for="gameSearch">Search Videogames</label>
-                <input type="search" id="gameSearch" name="search" placeholder="Videogame...">
-                <button type="submit" id="search-btn">Search</button>
-                
-                <div id="game-results">
-                    <!-- Game results will be displayed here -->
+            <div class="search-content">
+                <h1 style="padding: 10px;">Game Search</h1>
+
+                <div class="search-input-group">
+                    <label for="gameSearch">Search Videogames</label>
+                    <input type="search" id="gameSearch" name="search" placeholder="Videogame...">
+                    <button type="submit" id="search-btn">Search</button>
                 </div>
+
+                <!-- ✅ Results are now outside the input box -->
+                <ul id="game-results">
+                    <!-- Game results will be displayed here -->
+                </ul>
+
                 <div id="pages"></div>
             </div>
-            
-            <!-- Search results would go here -->
-            
         </form>
     </main>
 
