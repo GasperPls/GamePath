@@ -86,7 +86,6 @@
                     <button type="submit" id="search-btn">Search</button>
                 </div>
 
-                <!-- ✅ Results are now outside the input box -->
                 <ul id="game-results">
                     <!-- Game results will be displayed here -->
                 </ul>
@@ -102,6 +101,7 @@
     </footer>
 
     <script src="api.js"></script>
+    <!-- <script src="auth.js"></script> -->
     <script>
         document.querySelectorAll('.filter-title').forEach(title => {
             title.addEventListener('click', () => {
@@ -109,6 +109,15 @@
                 container.classList.toggle('collapsed');
             });
         });
+
+        // Logging out
+        const logout = document.querySelector("#logout");
+        if(logout) {
+            logout.addEventListener('click', (e) => {
+            
+            location.href = "index.html";
+            });
+        }
     </script>
 </body>
 </html>

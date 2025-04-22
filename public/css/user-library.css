@@ -56,3 +56,77 @@
 .remove-label:hover {
     background-color: #9e2c24;
 }
+
+#create-library-btn {
+    padding: 8px 10px;
+    background-color: #E6D6C1;
+    color: #061826;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.edit-library,
+.add-game,
+.delete-library {
+    padding: 8px 10px;
+    background-color: #E6D6C1;
+    color: #061826;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+}
+.library-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+/* .library {
+    background-color: white;
+} */
+
+.library-actions button {
+    margin-left: 10px;
+}
+
+.library-section {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 2em;
+    margin-bottom: 2em;
+}
+.library-card {
+    background-color: #22313f;
+    padding: 1em;
+    border-radius: 10px;
+    width: 180px;
+    text-align: center;
+}
+.library-games {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.5em;
+    margin-bottom: 0.8em;
+}
+.game-thumb {
+    width: 70px;
+    height: 70px;
+    background-color: #607D7E;
+    border-radius: 8px;
+}
+.library-button {
+    background-color: #1A303F;
+    color: #E6D6C1;
+    border: none;
+    padding: 0.5em 1em;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.library-button:hover {
+    background-color: #607D7E;
+}

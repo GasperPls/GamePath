@@ -4,19 +4,7 @@ body {
     background-color: #0f1c2e;
     color: #fff;
 }
-header nav ul {
-    list-style: none;
-    display: flex;
-    gap: 20px;
-    background-color: #0d1624;
-    padding: 20px;
-    justify-content: flex-end;
-}
-nav ul li a {
-    color: #fff;
-    text-decoration: none;
-    font-weight: bold;
-}
+
 .main-section {
     display: flex;
     padding: 40px;

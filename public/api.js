@@ -4,11 +4,11 @@ const clientId = '6epitxpes5udttl915kc8el5733olq';
 
 // Debounce function to limit API calls while typing
 function debounce(func, delay) {
-let timeout;
-return function (...args) {
-    clearTimeout(timeout);
-    timeout = setTimeout(() => func.apply(this, args), delay);
-};
+    let timeout;
+    return function (...args) {
+        clearTimeout(timeout);
+        timeout = setTimeout(() => func.apply(this, args), delay);
+    };
 }
 
 // Fetch games from IGDB API based on search query and selected companies
@@ -19,7 +19,6 @@ async function searchGames(query, filters) {
     }
 
     const apiUrlGames = 'https://cors-anywhere.herokuapp.com/https://api.igdb.com/v4/games';
-    //const apiUrlCollection = 'https://cors-anywhere.herokuapp.com/https://api.igdb.com/v4/collections';
 
     let gameBody = `
         fields name, cover.url, summary, 
@@ -163,8 +162,8 @@ function gameInfoPopup(game) {
     const closeButton = document.createElement('button');
     closeButton.textContent = 'X';
     closeButton.style.position = 'absolute';
-    closeButton.style.top = '10px';
-    closeButton.style.right = '10px';
+    closeButton.style.top = '310px';
+    closeButton.style.right = '370px';
     closeButton.style.background = 'none';
     closeButton.style.border = 'none';
     closeButton.style.color = 'white';
@@ -520,19 +519,3 @@ document.getElementById('search-btn').addEventListener('click', () => {
     };
     searchGames(query, filters);
 });
-
-
-/*document.getElementById('gameSearch').addEventListener(
-    'input',
-    debounce((event) => {
-        const query = event.target.value.trim();
-        const filters = {
-            companies: getCheckedValues('company'),
-            modes: getCheckedValues('mode'),
-            esrb: getCheckedValues('esrb'),
-            genres: getCheckedValues('genre')
-        };
-        searchGames(query, filters);
-    }, 300)
-);
-*/

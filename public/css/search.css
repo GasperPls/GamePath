@@ -82,14 +82,15 @@ body {
 /* Main content right of sidebar */
 .search-content {
     flex: 1;
-    padding: 60px 30px;
+    /* padding: 60px 30px; */
+    margin: 40px 30px;
     max-width: 100%;
     text-align: center;
 }
 
 /* Expanded and Centered Search Container */
 .search-input-group {
-    background-color: #2B505C;
+    /* background-color: #2B505C; */
     padding: 3em 4em;
     width: 100%;
     max-width: 900px;

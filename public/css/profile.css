@@ -12,26 +12,7 @@ body {
     color: #e0d6c9;
     min-height: 100vh;
 }
-/* Navbar */
-.navbar {
-    background-color: #0a141a;
-    padding: 1em 2em;
-}
-.navbar ul {
-    display: flex;
-    list-style: none;
-    gap: 2em;
-    justify-content: flex-end;
-}
-.navbar a {
-    text-decoration: none;
-    color: #e0d6c9;
-    font-weight: bold;
-    font-size: 1.1em;
-}
-.navbar a:hover {
-    color: #7E695C;
-}
+
 /* Layout */
 .profile-wrapper {
     background-color: #2b505c;
@@ -59,7 +40,7 @@ body {
     background-size: cover;
     background-position: center;
 }
-.username {
+#username {
     font-size: 1.8em;
     font-weight: bold;
     text-align: center;

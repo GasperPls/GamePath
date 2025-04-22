@@ -26,6 +26,34 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app)
 
+async function registerUser(email, password, username) {
+  const auth = getAuth();
+  const db = getFirestore();
+  
+  try {
+    // 1. Create the user with Firebase Authentication
+    const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+    const user = userCredential.user;
+    
+    // 2. Save additional user data to Firestore
+    const userDocRef = doc(db, "users", user.uid);
+    
+    await setDoc(userDocRef, {
+      email: email,
+      username: username,
+      createdAt: new Date(),
+      lastLogin: new Date()
+    });
+    
+    registerForm.reset();
+    location.href = "profile-setup.html"
+    
+  } catch (error) {
+    console.error("Error during registration:", error);
+    throw error;
+  }
+}
+
 // Registration Form
 const register = document.querySelector('#registerForm');
 if(register) {
@@ -34,12 +62,10 @@ if(register) {
 
     const email = registerForm['regEmail'].value;
     const password = registerForm['regPassword'].value;
-    //const repass = regForm['regRepassword'].value;
+    const username = registerForm['regUsername'].value;
    
-    createUserWithEmailAndPassword(auth, email, password).then(cred => {
-        registerForm.reset();
-        location.href = "profile-setup.html"
-    });}
+    registerUser(email, password, username);
+  }
 )};
 
 // Login Form
@@ -68,18 +94,41 @@ if(loginForm) {
 }
 
 // Status tracker of user
-onAuthStateChanged(auth, (user) => {
+onAuthStateChanged(auth, async (user) => {  // Add async here
   if (user) {
     console.log("user logged in: ", user);
+    
+    // Profile section - only if on profile page
+    const profile = document.querySelector('.profile-info');
+    if(profile) {
+      try {
+        // Get the user document from Firestore
+        const db = getFirestore();
+        const userDoc = await getDoc(doc(db, "users", user.uid));
+        
+        if (userDoc.exists()) {
+          const userData = userDoc.data();
+          // Update the username display
+          document.getElementById('username').textContent = userData.username;
+        } else {
+          console.log("No user data found in Firestore");
+          document.getElementById('username').textContent = "New User";
+        }
+      } catch (error) {
+        console.error("Error loading user data:", error);
+        document.getElementById('username').textContent = "User";
+      }
+    }
+    
     // Load user libraries when logged in
     loadUserLibraries(user.uid);
   } else {
     console.log("user logged out");
-    // Clear libraries display when logged out
-    document.getElementById('libraries-container').innerHTML = `
-      <h1 style="color: blue; text-align: center; padding-bottom:2em;">My Game Libraries</h1>
-      <button id="create-library-btn">Create New Library</button><br>
-    `;
+    // Clear or reset profile display if needed
+    const usernameElement = document.getElementById('username');
+    if (usernameElement) {
+      usernameElement.textContent = "[username]";
+    }
   }
 });
 
@@ -96,6 +145,9 @@ if(logout) {
   });
 }
 
+
+
+// Load libraries for corresponding logged in user
 async function loadUserLibraries(userId) {
   try {
       const librariesRef = collection(db, 'users', userId, 'libraries');
@@ -127,6 +179,9 @@ function renderLibrary(libraryId, libraryData) {
       libraryElement = document.createElement('div');
       libraryElement.className = 'library';
       libraryElement.id = libraryId;
+      //libraryElement.style.backgroundColor = 'blue';
+    //libraryElement.style.display = 'flex';
+
       
       libraryElement.innerHTML = `
           <div class="library-header">
@@ -137,18 +192,22 @@ function renderLibrary(libraryId, libraryData) {
                   <button class="delete-library">Delete</button>
               </div>
           </div>
-          <div class="library-labels">
-              ${libraryData.labels.map(label => `<span class="label">${label}</span>`).join('')}
+          <div class="library-labels">Labels: 
+              ${libraryData.labels.map(label => `<span class="label">${label}, </span>`).join('')}
           </div>
           <div class="games-container"></div>
       `;
+
       
-      document.getElementById('libraries-container').appendChild(libraryElement);
-      setupLibraryEvents(libraryElement);
+      const libCont = document.getElementById('libraries-container');
+      if(libCont) {
+        libCont.appendChild(libraryElement);
+        setupLibraryEvents(libraryElement);  
+      }
   } else {
       libraryElement.querySelector('.library-name').textContent = libraryData.name;
       libraryElement.querySelector('.library-labels').innerHTML = 
-          libraryData.labels.map(label => `<span class="label">${label}</span>`).join('');
+          libraryData.labels.map(label => `<span class="label">${label}, </span>`);
   }
 }
 
@@ -168,6 +227,7 @@ function setupLibraryEvents(libraryElement) {
       const gameCard = createGameCard();
       gamesContainer.appendChild(gameCard);
   });
+  
   deleteBtn.addEventListener('click', async function() {
     const user = auth.currentUser;
     if (!user) {
@@ -198,9 +258,11 @@ function enterEditMode(libraryElement) {
   
   // Populate form with existing data
   document.getElementById('library-name').value = libraryElement.querySelector('.library-name').textContent;
+  //document.getElementById('library-labels').value = libraryElement.querySelector('.library-labels').textContent;
+
   
   const labels = JSON.parse(libraryElement.dataset.labels || '[]');
-  labelsContainer.innerHTML = '<label>Labels:</label>';
+  labelsContainer.innerHTML = '<label>Labels: </label>';
   
   labels.forEach(label => {
       const labelInput = document.createElement('div');
@@ -226,7 +288,8 @@ const labelsContainer = document.getElementById('labels-container');
 const modalTitle = document.getElementById('modal-title');
 
 // Open modal for creating a new library
-createLibraryBtn.addEventListener('click', function() {
+if(createLibraryBtn) { 
+  createLibraryBtn.addEventListener('click', function() {
     isEditMode = false;
     modalTitle.textContent = 'Create New Library';
     libraryForm.reset();
@@ -238,15 +301,19 @@ createLibraryBtn.addEventListener('click', function() {
         </div>
     `;
     modal.style.display = 'block';
-});
+  });
+}
 
 // Close modal
-closeBtn.addEventListener('click', function() {
+if(closeBtn){
+  closeBtn.addEventListener('click', function() {
     modal.style.display = 'none';
-});
+  });
+}
 
 // Add another label field
-addLabelBtn.addEventListener('click', function() {
+if(addLabelBtn) {
+  addLabelBtn.addEventListener('click', function() {
     const labelInput = document.createElement('div');
     labelInput.className = 'label-input';
     labelInput.innerHTML = `
@@ -254,89 +321,74 @@ addLabelBtn.addEventListener('click', function() {
         <button type="button" class="remove-label">×</button>
     `;
     labelsContainer.appendChild(labelInput);
-});
+  });
+}
 
 // Remove label field
-labelsContainer.addEventListener('click', function(e) {
+if(labelsContainer) {
+  labelsContainer.addEventListener('click', function(e) {
     if (e.target.classList.contains('remove-label')) {
         if (document.querySelectorAll('.label-input').length > 1) {
             e.target.parentElement.remove();
         }
     }
-});
+  });
+}
 
 // Handle form submission
-libraryForm.addEventListener('submit', async function(e) {
-  e.preventDefault();
-  
-  const libraryName = document.getElementById('library-name').value;
-  const labelInputs = document.querySelectorAll('.label-name');
-  const labels = Array.from(labelInputs).map(input => input.value.trim()).filter(label => label);
-  
-  // Get the current logged-in user
-  const user = auth.currentUser;
-  if (!user) {
-    alert("You must be logged in to save libraries!");
-    return;
-  }
-
-  // Prepare library data
-  const libraryData = {
-    name: libraryName,
-    labels: labels,
-    createdAt: new Date().toISOString(),
-    updatedAt: new Date().toISOString()
-  };
-
-  if (isEditMode) {
-    // Update existing library in Firestore
-    try {
-      const libraryRef = doc(db, 'users', user.uid, 'libraries', currentLibraryId);
-      await updateDoc(libraryRef, {
-        name: libraryName,
-        labels: labels,
-        updatedAt: new Date().toISOString()
-      });
-      console.log("Library updated in Firestore!");
-    } catch (error) {
-      console.error("Error updating library:", error);
+if(libraryForm) {
+  libraryForm.addEventListener('submit', async function(e) {
+    e.preventDefault();
+    
+    const libraryName = document.getElementById('library-name').value;
+    const labelInputs = document.querySelectorAll('.label-name');
+    const labels = Array.from(labelInputs).map(input => input.value.trim()).filter(label => label);
+    
+    // Get the current logged-in user
+    const user = auth.currentUser;
+    if (!user) {
+      alert("You must be logged in to save libraries!");
+      return;
     }
-  } else {
-    // Create new library in Firestore
-    const libraryId = 'library-' + Date.now(); // Unique ID
-    await saveLibraryToFirestore(user.uid, libraryId, libraryData); // <-- CALL HERE
-  }
-
-  modal.style.display = 'none'; // Close modal
-});
-
+  
+    // Prepare library data
+    const libraryData = {
+      name: libraryName,
+      labels: labels,
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString()
+    };
+  
+    if (isEditMode) {
+      // Update existing library in Firestore
+      try {
+        const libraryRef = doc(db, 'users', user.uid, 'libraries', currentLibraryId);
+        await updateDoc(libraryRef, {
+          name: libraryName,
+          labels: labels,
+          updatedAt: new Date().toISOString()
+        });
+        console.log("Library updated in Firestore!");
+      } catch (error) {
+        console.error("Error updating library:", error);
+      }
+    } else {
+      // Create new library in Firestore
+      const libraryId = 'library-' + Date.now(); // Unique ID
+      await saveLibraryToFirestore(user.uid, libraryId, libraryData); // <-- CALL HERE
+    }
+  
+    modal.style.display = 'none'; // Close modal
+  });
+}
 
 // Save library
 async function saveLibraryToFirestore(userId, libraryId, libraryData) {
-try {
-  const libraryRef = doc(db, 'users', userId, 'libraries', libraryId);
-  await setDoc(libraryRef, libraryData);
-  console.log("Library saved successfully!");
-} catch (error) {
-  console.error("Error saving library: ", error);
+  try {
+    const libraryRef = doc(db, 'users', userId, 'libraries', libraryId);
+    await setDoc(libraryRef, libraryData);
+    //console.log("Library saved successfully!"); | Debugging
+  } catch (error) {
+    //console.error("Error saving library: ", error); || Debugging
+  }
 }
-}
-
-/*// Create a game card (simplified example)
-function createGameCard() {
-    const gameCard = document.createElement('div');
-    gameCard.className = 'game-card';
-    gameCard.innerHTML = `
-        <div class="game-content">
-            <h4>New Game</h4>
-            <p>Game details here</p>
-        </div>a
-        <button class="delete-game">Delete</button>
-    `;
-    
-    gameCard.querySelector('.delete-game').addEventListener('click', function() {
-        gameCard.remove();
-    });
-    
-    return gameCard;
-}*/
