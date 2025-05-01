@@ -4,6 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Discussion Board</title>
+    <link rel="stylesheet" href="global.css">
+    <link rel="stylesheet" href="css/user-library.css">
+    <!-- Firebase App (required) -->
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+     <!-- Firebase Database -->
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-database-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script> 
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
+
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -21,6 +30,15 @@
             padding: 10px;
             border: 1px solid #ddd;
             background-color: #f9f9f9;
+            border: 1px solid #ffffff;
+            background-color: #ffffff;
+            color: #000000;
+        }
+        .message-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color:#e93434
         }
         #message-input {
             width: 100%;
@@ -38,9 +56,25 @@
         #send-button:hover {
             background-color: #218838;
         }
+        .timestamp {
+            font-size: 0.5em;
+            color: #666;
+        }
     </style>
 </head>
 <body>
+
+    <header>
+        <nav>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="library.html">Library</a></li>
+            <li><a href="ratings.html">Ratings</a></li>
+            <li><a href="profile.html">Profile</a></li>
+            <li><a href="discussionboard.html">Discussion</a></li>
+          </ul>
+        </nav>
+      </header>
 
     <h1>Discussion Board</h1>
 
@@ -78,6 +112,110 @@
                 document.getElementById('send-button').click();
             }
         });
+    const firebaseConfig = {
+        apiKey: "AIzaSyC2FcmDPTGkDRUg5a64YQWr_NNdquwCXZU",
+        authDomain: "gamepath-1.firebaseapp.com",
+        databaseURL: "https://gamepath-1-default-rtdb.firebaseio.com",
+        projectId: "gamepath-1",
+        storageBucket: "gamepath-1.firebasestorage.app",
+        messagingSenderId: "662366695392",
+        appId: "1:662366695392:web:afc686c6808ff2606c0585",
+        measurementId: "G-RGJCZMG3N1"
+};
+
+// Initialize Firebase
+firebase.initializeApp(firebaseConfig);
+
+const database = firebase.database();
+const firestore = firebase.firestore();
+
+
+// Get a reference to the database
+
+
+function setupMessageSending(user, username) {
+    document.getElementById('send-button').addEventListener('click', function() {
+        const messageInput = document.getElementById('message-input');
+        const messageText = messageInput.value.trim();
+
+        if (messageText !== "") {
+            const newMessageRef = database.ref('messages').push();
+            const timestamp = Date.now();
+            newMessageRef.set({
+                text: messageText,
+                timestamp: timestamp,
+                uid: user.uid,
+                email: user.email,
+                username: username
+            });
+            messageInput.value = '';
+        }
+    });
+
+    document.getElementById('message-input').addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') {
+            document.getElementById('send-button').click();
+        }
+    });
+}
+
+        
+    // Load messages and listen for new ones
+    database.ref('messages').on('child_added', function(snapshot) {
+    const message = snapshot.val();
+    const messageElement = document.createElement('div');
+    messageElement.classList.add('message');
+    const date = new Date(message.timestamp);
+    const now = new Date();
+
+    const isToday =
+        date.getDate() === now.getDate() &&
+        date.getMonth() === now.getMonth() &&
+        date.getFullYear() === now.getFullYear();
+
+    const formattedDate = isToday
+        ? date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+        : date.toLocaleString([], {
+            year: 'numeric',
+            month: 'short',
+            day: 'numeric',
+            hour: '2-digit',
+            minute: '2-digit'
+    });
+    messageElement.innerHTML = `
+        <div class = "message-header">
+            <strong>${message.username || 'Unknown user'}</strong>
+            <span class="timestamp">${formattedDate}</span>
+        </div>
+        <div class="message-text">${message.text}</div>
+    `;
+    document.getElementById('discussion-board').appendChild(messageElement);
+
+    const discussionBoard = document.getElementById('discussion-board');
+    discussionBoard.scrollTop = discussionBoard.scrollHeight;
+});
+
+
+firebase.auth().onAuthStateChanged(function(user) {
+    if (user) {
+        firestore.collection('users').doc(user.uid).get()
+        .then((doc) => {
+            if (doc.exists && doc.data().username) {
+                const username = doc.data().username;
+                setupMessageSending(user, username);
+            } else {
+                console.warn("Username not found in Firestore document.");
+                alert("No username found in your profile. Please update it.");
+            }
+        })
+        .catch((error) => {
+            console.error("Error getting username:", error);
+            alert("Failed to load username.");
+        });
+    } else {
+        alert("Please sign in to send messages.");
+    }
+});
     </script>
 
 </body>
