@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Library - GamePath</title>
+    <link rel="stylesheet" href="global.css">
+    <link rel="stylesheet" href="css/user-library.css">
+</head>
+<body>
+
+    <!-- Navigation Bar -->
+    <header>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="search.html">Search</a></li>
+                <li><a href="ratings.html">Ratings</a></li>
+                <li><a href="profile.html">Profile</a></li>
+                <li><a href="user-library.html">Library</a></li>
+                <li></li><a href="discussionboard.html">Discussion</a></li>
+                <li><a id="logout" href="#">Logout</a></li>
+            </ul>
+        </nav>
+    </header>
+ 
+    <!-- Main Content -->
+    <main id="libraries-container">
+        <h1 style="text-align: center; padding-bottom:20px;">My Game Libraries</h1>
+        <button id="create-library-btn">Create New Library</button><br>
+        <!-- Libraries will go here -->
+        <div class="libraries"></div>
+    </main> 
+    <!-- Modal for creating/editing libraries -->
+    <div id="library-modal" class="modal">
+        <div class="modal-content"> 
+            <span class="close">&times;</span>
+            <h2 id="modal-title">Create New Library</h2>
+            <form id="library-form">
+                <label for="library-name">Library Name:</label>
+                <input type="text" id="library-name" placeholder="Name" required>
+                
+                <div id="labels-container">
+                    <label>Labels:</label>
+                    <div class="label-input">
+                        <input type="text" class="label-name" placeholder="Label name">
+                        <button type="button" class="remove-label">×</button>
+                    </div>
+                </div>
+                <button type="button" id="add-label" style="padding: 8px 10px;
+                background-color: #E6D6C1;
+                color: #061826;
+                border: none;
+                border-radius: 4px;
+                cursor: pointer;
+                font-weight: bold;">Add Another Label</button>
+                
+                <button type="submit" id="save-btn" style="padding: 8px 10px;
+                background-color: #E6D6C1;
+                color: #061826;
+                border: none;
+                border-radius: 4px;
+                cursor: pointer;
+                font-weight: bold;">Save Library</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>© 2025 GamePath. All rights reserved.</p>
+    </footer>
+
+    <script src="auth.js" type="module"></script>
+    
+</body>
+</html>

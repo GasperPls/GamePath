@@ -1,0 +1,144 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #0c1d26;
+    color: #e6d3ba;
+}
+
+/* Container for sidebar + main content */
+.search-form {
+    display: flex;
+    align-items: flex-start; /* Fix alignment jump */
+    width: 100%;
+}
+
+/* Sidebar */
+.sidebar-filters {
+    width: 250px;
+    background-color: #2B505C;
+    padding: 20px;
+    position: sticky;
+    top: 60px;
+    height: calc(100vh - 60px);
+    overflow-y: auto;
+}
+
+/* Filter section styles */
+.filter-container {
+    margin-bottom: 25px;
+    border-bottom: 1px solid #3a365a;
+    padding-bottom: 15px;
+}
+
+.filter-container.collapsed .filter-options {
+    max-height: 0;
+    padding: 0;
+}
+
+.filter-container:last-child {
+    border-bottom: none;
+}
+
+.filter-title {
+    color: #7E695C;
+    margin-top: 0;
+    margin-bottom: 10px;
+    font-size: 1.1em;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+}
+
+.arrow {
+    transition: transform 0.3s ease;
+    font-size: 0.9em;
+}
+
+.filter-container.collapsed .arrow {
+    transform: rotate(-90deg);
+}
+
+.filter-options {
+    max-height: 1000px;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+}
+
+.filter-options label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    padding: 5px;
+    border-radius: 4px;
+    transition: all 0.2s;
+}
+
+.filter-options label:hover {
+    background-color: #3a365a;
+}
+
+/* Main content right of sidebar */
+.search-content {
+    flex: 1;
+    /* padding: 60px 30px; */
+    margin: 40px 30px;
+    max-width: 100%;
+    text-align: center;
+}
+
+/* Expanded and Centered Search Container */
+.search-input-group {
+    /* background-color: #2B505C; */
+    padding: 3em 4em;
+    width: 100%;
+    max-width: 900px;
+    margin: 0 auto;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1.5em;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Bigger Input */
+.search-input-group input[type="search"] {
+    padding: 10px;
+    font-size: 16px;
+    width: 300px;
+    border-radius: 5px;
+    border: none;
+}
+
+/* Bigger Button */
+#search-btn {
+    padding: 10px 20px;
+    background-color: #1f2b38;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+}
+
+/* Game results grid */
+#game-results {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 20px;
+    list-style-type: none;
+    padding: 40px 0 0 0;
+    margin: 0;
+    width: 100%;
+}
+
+#game-results li {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    cursor: pointer;
+}

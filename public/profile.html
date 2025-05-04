@@ -1,60 +1,109 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Profile - GamePath</title>
-    <link rel="stylesheet" href="indexstyle.css"> <!-- Link to the existing CSS file -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>User Profile</title>
+  <link rel="stylesheet" href="global.css">
+  <link rel="stylesheet" href="css/profile.css">
+  
+  <script>
+    function loadProfile() {
+      const profilePicture = localStorage.getItem("profilePicture") || 'default-avatar.png';
+      const favoriteGenres = JSON.parse(localStorage.getItem("favoriteGenres")) || [];
+      const gamingPlatforms = JSON.parse(localStorage.getItem("gamingPlatforms")) || [];
+
+      document.getElementById("profilePic").style.backgroundImage = `url(${profilePicture})`;
+      document.getElementById("favoriteGenres").textContent = favoriteGenres.length ? favoriteGenres.join(", ") : "Not set";
+      document.getElementById("gamingPlatforms").textContent = gamingPlatforms.length ? gamingPlatforms.join(", ") : "Not set";
+    }
+
+    function toggleFollow() {
+      const followBtn = document.getElementById("followBtn");
+      followBtn.innerText = (followBtn.innerText === "Follow") ? "Unfollow" : "Follow";
+    }
+
+    document.addEventListener("DOMContentLoaded", loadProfile);
+  </script>
 </head>
+
 <body>
+  <header>
+    <nav class="navbar">
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="search.html">Search</a></li>
+        <li><a href="ratings.html">Ratings</a></li>
+        <li><a href="profile.html">Profile</a></li>
+        <li><a href="user-library.html">Library</a></li>
+        <li><a id="logout" href="#">Logout</a></li>
+      </ul>
+    </nav>
+  </header>
+  <div class="profile-wrapper">
 
-    <!-- Navigation Bar -->
-    <header>
-        <nav>
-            <ul>
-                <li><a href="index.html">Home</a></li>
-                <li><a href="library.html">Library</a></li>
-                <li><a href="ratings.html">Ratings</a></li>
-                <li><a href="profile.html">Profile</a></li>
-            </ul>
-        </nav>
-    </header>
+    <!-- Left Profile Info -->
+    <div class="profile-info">
+      <div id="profilePic" class="profile-picture"></div>
+      <div id="username">[username]</div>
+      <div class="gaming-preferences">
+        <h3>Gaming Preferences</h3>
+        <p><strong>Favorite Genres:</strong> <span id="favoriteGenres">Loading...</span></p>
+        <p><strong>Preferred Platforms:</strong> <span id="gamingPlatforms">Loading...</span></p>
+      </div>
+      <div class="profile-buttons">
+        <button class="profile-button" onclick="window.location.href='profile-setup.html'">Settings</button>
+        <button class="profile-button" onclick="alert('Edit Profile clicked')">Edit Profile</button>
+        <button id="followBtn" class="profile-button" onclick="toggleFollow()">Follow</button>
+      </div>
+    </div>
 
-    <!-- Main Content -->
-    <main>
-        <section class="profile-section">
-            <h1>User Profile</h1>
-            <p class="profile-intro">View and update your profile information below.</p>
-            
-            <!-- Basic Information -->
-            <div class="profile-card">
-                <h2>Basic Information</h2>
-                <p><strong>Username:</strong> gamer123</p>
-                <p><strong>Email:</strong> gamer123@example.com</p>
-                <p><strong>Member Since:</strong> January 2023</p>
-            </div>
+    <!-- Right Main Content -->
+    <div class="profile-content">
+      <div class="library-section">
+        <div class="library-card">
+          <div class="library-games">
+            <div class="game-thumb"></div>
+            <div class="game-thumb"></div>
+            <div class="game-thumb"></div>
+            <div class="game-thumb"></div>
+          </div>
+          <button class="library-button">Library Name</button>
+        </div>
 
-            <!-- Gaming Preferences -->
-            <div class="profile-card">
-                <h2>Gaming Preferences</h2>
-                <p><strong>Favorite Genres:</strong> Action, Adventure, RPG</p>
-                <p><strong>Platform:</strong> PC, Console</p>
-            </div>
+        <div class="library-card">
+          <div class="library-games">
+            <div class="game-thumb"></div>
+            <div class="game-thumb"></div>
+            <div class="game-thumb"></div>
+            <div class="game-thumb"></div>
+          </div>
+          <button class="library-button">Library Name</button>
+        </div>
 
-            <!-- Account Settings -->
-            <div class="profile-card">
-                <h2>Account Settings</h2>
-                <button class="profile-button">Edit Profile</button>
-                <button class="profile-button">Change Password</button>
-                <button class="profile-button">Delete Account</button>
-            </div>
-        </section>
-    </main>
+        <div class="library-card">
+          <div class="library-games">
+            <div class="game-thumb"></div>
+            <div class="game-thumb"></div>
+            <div class="game-thumb"></div>
+            <div class="game-thumb"></div>
+          </div>
+          <button class="library-button">Library Name</button>
+        </div>
+      </div>
 
-    <!-- Footer -->
-    <footer>
-        <p>© 2024 GamePath. All rights reserved.</p>
-    </footer>
+      <div class="latest-review">
+        <p><strong>Latest Rating:</strong> [Game Title]</p>
+        <div class="stars">★★★★☆</div>
+        <p><strong>Latest Review:</strong> [Game Title]</p>
+        <div class="review-text">
+          <p>Something is said in here... at most 2k characters then \"...\"</p>
+        </div>
+      </div>
+    </div>
+    
+    <script type="module" src="auth.js"></script>
 
+  </div>
 </body>
 </html>

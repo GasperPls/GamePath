@@ -4,39 +4,25 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>GamePath</title>
-  <link rel="stylesheet" href="indexstyle.css" />
+  <link rel="stylesheet" href="global.css">
+  <script type="module" src="auth.js"></script>
 </head>
 <body>
-
-  <!-- Navigation Bar -->
-  <header>
-    <nav>
-      <ul>
-        <li><a href="index.html">Home</a></li>
-        <li><a href="library.html">Library</a></li>
-        <li><a href="ratings.html">Ratings</a></li>
-        <li><a href="profile.html">Profile</a></li>
-      </ul>
-    </nav>
-  </header>
-
-  <!-- Front-Page Attraction -->
   <section class="front-page-attraction">
     <h2>“Discover, Play, and Track Your Gaming Journey”</h2>
     <p>GamePath brings all your favorite games together in one place. Track your progress, rate your experiences, and share reviews with a community of gamers.</p>
   </section>
 
-  <!-- Main Content -->
   <main>
-    <!-- Login Section -->
     <section class="login-section">
       <div class="login-box">
         <h1>GamePath</h1>
-        <form action="" id="myForm">
-          <label for="email">Email:</label>
+        <form id="loginForm">
+          <label for="loginEmail">Email:</label>
           <input type="text" id="loginEmail" autocomplete="off" placeholder="Email" required>
-          <label for="password">Password:</label>
+          <label for="loginPassword">Password:</label>
           <input type="password" id="loginPassword" autocomplete="off" placeholder="Password" required>
+          <p id="loginError" style="color: red;"></p>
           <button type="submit">Login</button>
         </form>
         <p>Or</p>
@@ -44,31 +30,64 @@
       </div>
     </section>
 
-    <!-- Registration Popup -->
     <div id="popup1" class="overlay">
       <div class="popup">
         <h2>Registration</h2>
         <a class="close" href="#">&times;</a>
         <div class="content">
-          <form action="" id="regForm">
+          <form id="registerForm">
             <label for="regEmail">Email:</label>
             <input type="email" id="regEmail" autocomplete="off" required />
+
+            <label for="regUsername">Username:</label>
+            <input type="text" id="regUsername" autocomplete="off" required style="width: 100%; padding: 0.6em; border: none; border-radius: 5px; background-color: #E6D6C1; color: #061826; font-size: 1em;" />
+
             <label for="regPassword">Password:</label>
-            <input type="password" id="regPassword" autocomplete="off" required />
+            <input type="password" id="regPassword" autocomplete="off" required oninput="validatePassword()" />
+
+            <label for="confirmPassword">Retype Password:</label>
+            <input type="password" id="confirmPassword" autocomplete="off" required oninput="validatePassword()" />
+
+            <p id="passwordHint">Must be at least 8 characters, 1 symbol, 1 capital letter, and 1 number.</p>
+            <p id="registerError" style="color: red;"></p>
             <button type="submit">Register</button>
           </form>
         </div>
       </div>
     </div>
   </main>
+  <script>
+    function validatePassword() {
+      const password = document.getElementById("regPassword").value;
+      const confirmPassword = document.getElementById("confirmPassword").value;
+      const errorElement = document.getElementById("registerError");
+      const passwordPattern = /^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]).{8,}$/;
+      
+      if (!passwordPattern.test(password)) {
+        errorElement.textContent = "Password must be at least 8 characters long, contain 1 uppercase letter, 1 number, and 1 special character.";
+        return false;
+      }
+      
+      if (password !== confirmPassword) {
+        errorElement.textContent = "Passwords do not match.";
+        return false;
+      }
+      
+      errorElement.textContent = "";
+      return true;
+    }
+    
+    document.addEventListener("DOMContentLoaded", function() {
+      document.getElementById("registerForm").addEventListener("submit", function(event) {
+        if (!validatePassword()) {
+          event.preventDefault();
+        }
+      });
+    });
+  </script>
 
-  <!-- Footer -->
   <footer>
     <p>© 2024 GamePath. All rights reserved.</p>
   </footer>
-
-  <!-- JavaScript external files -->
-  <script type="module" src="script.js"></script>
-
 </body>
 </html>

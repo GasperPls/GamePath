@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Search - GamePath</title>
+    <link rel="stylesheet" href="css/search.css" />
+    <link rel="stylesheet" href="global.css" />
+</head>
+<body>
+
+    <!-- Navigation Bar -->
+    <header>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="search.html">Search</a></li>
+                <li><a href="ratings.html">Ratings</a></li>
+                <li><a href="profile.html">Profile</a></li>
+                <li><a href="user-library.html">Library</a></li>
+                <li><a id="logout" href="#">Logout</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        <form class="search-form">
+            <!-- Sidebar Filters -->
+            <aside class="sidebar-filters">
+                <div class="filter-container">
+                    <h3 class="filter-title">Company <span class="arrow">▼</span></h3>
+                    <div class="filter-options">
+                        <label><input type="checkbox" name="company" value="nintendo"> Nintendo</label>
+                        <label><input type="checkbox" name="company" value="sony"> Sony</label>
+                        <label><input type="checkbox" name="company" value="microsoft"> Microsoft</label>
+                        <label><input type="checkbox" name="company" value="steam"> Steam</label>
+                    </div>
+                </div>
+
+                <div class="filter-container">
+                    <h3 class="filter-title">Multiplayer <span class="arrow">▼</span></h3>
+                    <div class="filter-options">
+                        <label><input type="checkbox" name="mode" value="solo"> Solo</label>
+                        <label><input type="checkbox" name="mode" value="co-op"> Co-Op</label>
+                        <label><input type="checkbox" name="mode" value="multiplayer"> Multiplayer</label>
+                        <label><input type="checkbox" name="mode" value="party"> Party</label>
+                    </div>
+                </div>
+
+                <div class="filter-container">
+                    <h3 class="filter-title">ESRB Rating <span class="arrow">▼</span></h3>
+                    <div class="filter-options">
+                        <label><input type="checkbox" name="esrb" value="everyone"> Everyone</label>
+                        <label><input type="checkbox" name="esrb" value="everyone10"> Everyone 10+</label>
+                        <label><input type="checkbox" name="esrb" value="teen"> Teen</label>
+                        <label><input type="checkbox" name="esrb" value="mature"> Mature 17+</label>
+                        <label><input type="checkbox" name="esrb" value="adult"> Adult 18+</label>
+                    </div>
+                </div>
+
+                <div class="filter-container">
+                    <h3 class="filter-title">Genre <span class="arrow">▼</span></h3>
+                    <div class="filter-options">
+                        <label><input type="checkbox" name="genre" value="action"> Action</label>
+                        <label><input type="checkbox" name="genre" value="adventure"> Adventure</label>
+                        <label><input type="checkbox" name="genre" value="platformer"> Platformer</label>
+                        <label><input type="checkbox" name="genre" value="shooter"> Shooter</label>
+                        <label><input type="checkbox" name="genre" value="fighting"> Fighting</label>
+                        <label><input type="checkbox" name="genre" value="sport"> Sports</label>
+                        <label><input type="checkbox" name="genre" value="puzzle"> Puzzle</label>
+                        <label><input type="checkbox" name="genre" value="horror"> Horror</label>
+                        <label><input type="checkbox" name="genre" value="farming"> Farming</label>
+                        <label><input type="checkbox" name="genre" value="racing"> Racing</label>
+                    </div>
+                </div>
+            </aside>
+
+            <!-- Search Content -->
+            <div class="search-content">
+                <h1 style="padding: 10px;">Game Search</h1>
+
+                <div class="search-input-group">
+                    <label for="gameSearch">Search Videogames</label>
+                    <input type="search" id="gameSearch" name="search" placeholder="Videogame...">
+                    <button type="submit" id="search-btn">Search</button>
+                </div>
+
+                <ul id="game-results">
+                    <!-- Game results will be displayed here -->
+                </ul>
+
+                <div id="pages"></div>
+            </div>
+        </form>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <p>© 2025 GamePath. All rights reserved.</p>
+    </footer>
+
+    <script src="api.js"></script>
+    <!-- <script src="auth.js"></script> -->
+    <script>
+        document.querySelectorAll('.filter-title').forEach(title => {
+            title.addEventListener('click', () => {
+                const container = title.parentElement;
+                container.classList.toggle('collapsed');
+            });
+        });
+
+        // Logging out
+        const logout = document.querySelector("#logout");
+        if(logout) {
+            logout.addEventListener('click', (e) => {
+            
+            location.href = "index.html";
+            });
+        }
+    </script>
+</body>
+</html>

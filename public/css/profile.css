@@ -1,0 +1,183 @@
+/* Profile Page Styles */
+
+/* Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body {
+    font-family: Arial, sans-serif;
+    background-color: #0f1c24;
+    color: #e0d6c9;
+    min-height: 100vh;
+}
+
+/* Layout */
+.profile-wrapper {
+    background-color: #2b505c;
+    margin: 2em auto;
+    padding: 2em;
+    width: 90%;
+    max-width: 1200px;
+    border-radius: 15px;
+    display: flex;
+    gap: 3em;
+}
+/* Left Side (Profile Info) */
+.profile-info {
+    width: 300px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1em;
+}
+.profile-picture {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    background-color: #ccc;
+    background-size: cover;
+    background-position: center;
+}
+#username {
+    font-size: 1.8em;
+    font-weight: bold;
+    text-align: center;
+}
+.gaming-preferences {
+    background-color: #22313f;
+    padding: 1em;
+    border-radius: 10px;
+    width: 100%;
+    text-align: center;
+    margin-top: 1em;
+}
+.profile-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5em;
+    margin-top: 1em;
+    width: 100%;
+}
+.profile-button {
+    background-color: #7E695C;
+    color: white;
+    border: none;
+    padding: 0.7em;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 1em;
+}
+.profile-button:hover {
+    background-color: #607D7E;
+}
+/* Right Side (Content Area) */
+.profile-content {
+    flex: 1;
+}
+.library-section {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 2em;
+    margin-bottom: 2em;
+}
+.library-card {
+    background-color: #22313f;
+    padding: 1em;
+    border-radius: 10px;
+    width: 180px;
+    text-align: center;
+}
+.library-games {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.5em;
+    margin-bottom: 0.8em;
+}
+.game-thumb {
+    width: 70px;
+    height: 70px;
+    background-color: #607D7E;
+    border-radius: 8px;
+}
+.library-button {
+    background-color: #1A303F;
+    color: #E6D6C1;
+    border: none;
+    padding: 0.5em 1em;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.library-button:hover {
+    background-color: #607D7E;
+}
+.latest-review {
+    background-color: #7E695C;
+    padding: 2em;
+    border-radius: 10px;
+    color: #0f1c24;
+    text-align: center;
+}
+.stars {
+    color: gold;
+    font-size: 1.5em;
+    margin: 0.5em 0;
+}
+.review-text {
+    background-color: #22313f;
+    color: #e0d6c9;
+    padding: 1em;
+    border-radius: 10px;
+    margin-top: 1em;
+}
+
+.profile-section {
+    text-align: center;
+    color: #E6D6C1;
+    padding: 2em;
+}
+
+.profile-intro {
+    font-size: 1.1em;
+    margin-bottom: 1em;
+    color: #7E695C;
+}
+
+.profile-card {
+    background-color: #2B505C;
+    padding: 1.5em;
+    border-radius: 10px;
+    text-align: left;
+    width: 300px;
+    margin: 1em auto;
+    color: #E6D6C1;
+}
+
+.profile-card h2 {
+    font-size: 1.2em;
+    margin-bottom: 0.5em;
+}
+
+.profile-card p {
+    font-size: 0.9em;
+    margin: 0.3em 0;
+}
+
+.profile-button {
+    background-color: #1A303F;
+    color: #E6D6C1;
+    border: none;
+    padding: 0.7em;
+    margin: 0.5em 0;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%;
+    font-size: 0.9em;
+}
+
+.profile-button:hover {
+    background-color: #607D7E;
+}

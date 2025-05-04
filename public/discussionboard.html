@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Discussion Board</title>
-    <link rel="stylesheet" href="indexstyle.css">
+    <link rel="stylesheet" href="global.css">
     <!-- Firebase App (required) -->
     <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
      <!-- Firebase Database -->
@@ -55,7 +55,8 @@
         }
         .timestamp {
             font-size: 0.5em;
-            color: #666;
+            font-style: italic;
+            color: #ffffff;
         }
     </style>
 </head>
@@ -83,33 +84,7 @@
     <button id="send-button">Send</button>
 
     <script>
-        document.getElementById('send-button').addEventListener('click', function() {
-            const messageInput = document.getElementById('message-input');
-            const messageText = messageInput.value.trim();
-
-            if (messageText !== "") {
-                const messageElement = document.createElement('div');
-                messageElement.classList.add('message');
-                messageElement.textContent = messageText;
-
-                document.getElementById('discussion-board').appendChild(messageElement);
-
-                // Clear the input field
-                messageInput.value = '';
-
-                // Scroll to the bottom of the discussion board
-                const discussionBoard = document.getElementById('discussion-board');
-                discussionBoard.scrollTop = discussionBoard.scrollHeight;
-            }
-        });
-
-        // Allow pressing Enter to send the message
-        document.getElementById('message-input').addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') {
-                document.getElementById('send-button').click();
-            }
-        });
-    const firebaseConfig = {
+        const firebaseConfig = {
         apiKey: "AIzaSyC2FcmDPTGkDRUg5a64YQWr_NNdquwCXZU",
         authDomain: "gamepath-1.firebaseapp.com",
         databaseURL: "https://gamepath-1-default-rtdb.firebaseio.com",
@@ -120,34 +95,42 @@
         measurementId: "G-RGJCZMG3N1"
 };
 
-// Initialize Firebase
-firebase.initializeApp(firebaseConfig);
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
 
-const database = firebase.database();
-const firestore = firebase.firestore();
-
+    const database = firebase.database();
+    const firestore = firebase.firestore();
+    const auth = firebase.auth();
 
 // Get a reference to the database
 
 
 function setupMessageSending(user, username) {
     document.getElementById('send-button').addEventListener('click', function() {
-        const messageInput = document.getElementById('message-input');
-        const messageText = messageInput.value.trim();
+        const messageText = document.getElementById('message-input').value.trim();
+
+        if (!user) {
+                showAlert("You must be signed in to send a message.");
+                return;  // Prevent message sending if not authenticated
+        }
 
         if (messageText !== "") {
-            const newMessageRef = database.ref('messages').push();
-            const timestamp = Date.now();
-            newMessageRef.set({
-                text: messageText,
-                timestamp: timestamp,
-                uid: user.uid,
-                email: user.email,
-                username: username
-            });
-            messageInput.value = '';
-        }
-    });
+                const newMessageRef = database.ref('messages').push();
+                const timestamp = Date.now();
+                newMessageRef.set({
+                    text: messageText,
+                    timestamp: timestamp,
+                    uid: user.uid,
+                    email: user.email,
+                    username: username
+                }).then(() => {
+                    messageInput.value = '';  // Clear the input after sending
+                }).catch((error) => {
+                    console.error("Error sending message:", error);
+                    alert("Failed to send message.");
+                });
+            }
+        });
 
     document.getElementById('message-input').addEventListener('keypress', function(e) {
         if (e.key === 'Enter') {
@@ -213,6 +196,18 @@ firebase.auth().onAuthStateChanged(function(user) {
         alert("Please sign in to send messages.");
     }
 });
+function showAlert(message) {
+        const alertElement = document.createElement('div');
+        alertElement.textContent = message;
+        alertElement.style.backgroundColor = '#f8d7da';
+        alertElement.style.color = '#721c24';
+        alertElement.style.padding = '10px';
+        alertElement.style.margin = '10px 0';
+        alertElement.style.border = '1px solid #f5c6cb';
+        alertElement.style.borderRadius = '5px';
+        document.body.prepend(alertElement);  // Show alert at the top of the page
+    }
+
     </script>
 
 </body>
